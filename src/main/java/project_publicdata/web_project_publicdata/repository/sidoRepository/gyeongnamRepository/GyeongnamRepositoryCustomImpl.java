@@ -1,0 +1,7 @@
+package project_publicdata.web_project_publicdata.repository.sidoRepository.gyeongnamRepository;
+
+import project_publicdata.web_project_publicdata.repository.sidoRepository.gyeonggiRepository.GyeonggiRepositoryCustom;
+
+public class GyeongnamRepositoryCustomImpl implements GyeonggiRepositoryCustom {
+
+}
