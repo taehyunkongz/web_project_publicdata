@@ -1,0 +1,3264 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <title>공공포털 데이터 제공 - 코로나 현황 웹 서비스</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/custom-images/public_institutions_mark.png">
+
+    <!-- third party css -->
+    <link href="assets/css/vendor/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+    <!-- third party css end -->
+
+    <!-- App css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css" id="app-style"/>
+    <link href="assets/css/custom-chart.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/custom.css" rel="stylesheet" type="text/css">
+
+    <!-- date range picker css-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+
+
+</head>
+
+<body class="loading" data-layout-color="light" data-leftbar-theme="light" data-layout-mode="fluid" data-rightbar-onstart="true" data-leftbar-compact-mode="condensed">
+<!-- Begin page -->
+<div class="wrapper">
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="leftside-menu" >
+
+        <!-- LOGO -->
+        <a onclick="window.location.reload()" class="logo text-center logo-light">
+                    <span class="logo-lg">
+                        <img src="assets/images/custom-images/public_institutions.png" alt="">
+                    </span>
+            <span class="logo-sm">
+                        <img src="assets/images/custom-images/public_institutions_mark.png" alt="">
+                    </span>
+        </a>
+
+        <!-- LOGO -->
+        <a onclick="window.location.reload()" class="logo text-center logo-dark">
+                    <span class="logo-lg">
+                        <img src="assets/images/custom-images/public_institutions.png" alt="">
+                    </span>
+            <span class="logo-sm">
+                        <img src="assets/images/custom-images/public_institutions_mark.png" alt="">
+                    </span>
+        </a>
+
+        <div class="h-100" id="leftside-menu-container" data-simplebar>
+
+            <!--- Sidemenu -->
+            <ul class="side-nav" >
+
+                <li class="side-nav-title side-nav-item">사이드 네비게이션</li>
+
+                <li class="side-nav-item">
+                    <a onclick="window.location.reload()" data-bs-toggle="collapse" href="#sidebarDashboards" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
+                        <img src="assets/images/custom-images/public_institutions_mark.png" style="margin-right: 5px;">
+                        <span> 코로나 웹 서비스 </span>
+                    </a>
+                    <div class="collapse" id="sidebarDashboards">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="http://www.changwon.ac.kr" target="_blank">창원대학교</a>
+                            </li>
+                            <li>
+                                <a href="http://www.mohw.go.kr/react/index.jsp" target="_blank">보건복지부</a>
+                            </li>
+                            <li>
+                                <a href="https://kdca.go.kr/index.es?sid=a2" target="_blank">질병관리청</a>
+                            </li>
+                            <li>
+                                <a href="https://ncvr2.kdca.go.kr" target="_blank">백신 접종 예약</a>
+                            </li>
+                            <li>
+                                <a href="dashboard-wallet.html">중앙방역대책본부</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-title side-nav-item">시·도</li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-seoul" aria-expanded="false" aria-controls="sidebar-seoul" class="side-nav-link">
+                        <img src="assets/images/custom-images/seoul.png" style="margin-right: 15px;">
+                        <span class="text-center"> 서울특별시 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-seoul">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="https://www.seoul.go.kr/coronaV/coronaStatus.do" target="_blank">서울특별시 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href='https://www.seoul.go.kr/main/index.jsp' target="_blank">서울특별시 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>서울특별시 콜센터<br>
+                                <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">1899-0221</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-incheon" aria-expanded="false" aria-controls="sidebar-incheon" class="side-nav-link">
+                        <img src="assets/images/custom-images/incheon.png" style="margin-right: 15px;">
+                        <span class="text-center"> 인천광역시 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-incheon">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="https://www.incheon.go.kr/covid19/index" target="_blank">인천광역시 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href="https://www.incheon.go.kr/index">인천광역시 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>인천광역시 콜센터<br>
+                                <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">032-120</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-sejong" aria-expanded="false" aria-controls="sidebar-sejong" class="side-nav-link">
+                        <img src="assets/images/custom-images/sejong.png" style="margin-right: 15px;">
+                        <span class="text-center"> 세종특별자치시 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-sejong">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="https://www.sejong.go.kr/prog/covid/covid19/sub01_08/list.do" target="_blank">세종특별자치시 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href="https://www.sejong.go.kr/kor/index.do" target="_blank">세종특별자치시 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>세종특별자치시 콜센터<br>
+                                <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">044-120</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-daejeon" aria-expanded="false" aria-controls="sidebar-daejeon" class="side-nav-link">
+                        <img src="assets/images/custom-images/daejeon.png" style="margin-right: 15px;">
+                        <span class="text-center"> 대전광역시 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-daejeon">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="https://corona.daejeon.go.kr/index.do" target="_blank">대전광역시 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href="https://www.daejeon.go.kr/intro_main.jsp" target="_blank">대전광역시 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>대전광역시 콜센터<br>
+                                <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">042-120</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-busan" aria-expanded="false" aria-controls="sidebar-busan" class="side-nav-link">
+                        <img src="assets/images/custom-images/busan.png" style="margin-right: 15px;">
+                        <span class="text-center"> 부산광역시 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-busan">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="https://www.busan.go.kr/covid19/" target="_blank">부산광역시 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href="https://www.busan.go.kr/index" target="_blank">부산광역시 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>부산광역시 콜센터<br>
+                                    <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">051-120</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-gwangju" aria-expanded="false" aria-controls="sidebar-gwangju" class="side-nav-link">
+                        <img src="assets/images/custom-images/gwangju.png" style="margin-right: 15px;">
+                        <span class="text-center"> 광주광역시 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-gwangju">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="https://www.gwangju.go.kr/c19/" target="_blank">광주광역시 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href="https://www.gwangju.go.kr/index.jsp" target="_blank">광주광역시 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>광주광역시 콜센터<br>
+                                <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">062-120</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-daegu" aria-expanded="false" aria-controls="sidebar-daegu" class="side-nav-link">
+                        <img src="assets/images/custom-images/daegu.png" style="margin-right: 15px;">
+                        <span class="text-center"> 대구광역시 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-daegu">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="http://covid19.daegu.go.kr/index.html" target="_blank">대구광역시 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href="https://www.daegu.go.kr/index.do" target="_blank">대구광역시 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>대구광역시 콜센터<br>
+                                <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">053-120</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-ulsan" aria-expanded="false" aria-controls="sidebar-ulsan" class="side-nav-link">
+                        <img src="assets/images/custom-images/ulsan.png" style="margin-right: 15px;">
+                        <span class="text-center"> 울산광역시 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-ulsan">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="https://www.ulsan.go.kr/u/health/contents.ulsan?mId=001002014000000000" target="_blank">울산광역시 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href="https://www.ulsan.go.kr/u/rep/main.ulsan" target="_blank">울산광역시 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>울산광역시 콜센터<br>
+                                <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">052-120</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-gyeonggi" aria-expanded="false" aria-controls="sidebar-gyeonggi" class="side-nav-link">
+                        <img src="assets/images/custom-images/gyeonggi.png" style="margin-right: 15px;">
+                        <span class="text-center"> 경기도 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-gyeonggi">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="https://www.gg.go.kr/covid19/contents/contents.do?ciIdx=1015&menuId=2769" target="_blank">경기도 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href="https://www.gg.go.kr" target="_blank">경기도 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>경기도 콜센터<br>
+                                    <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">031-120</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-gyeongbuk" aria-expanded="false" aria-controls="sidebar-gyeongbuk" class="side-nav-link">
+                        <img src="assets/images/custom-images/gyeongbuk.png" style="margin-right: 15px;">
+                        <span class="text-center"> 경상북도 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-gyeongbuk">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="https://www.gb.go.kr/corona_main.htm" target="_blank">경상북도 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href="https://www.gb.go.kr/Main/index.html" target="_blank">경상북도 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>경상북도 콜센터<br>
+                                <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">1522-0120</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-gyeongnamdo" aria-expanded="false" aria-controls="sidebar-gyeongnamdo" class="side-nav-link">
+                        <img src="assets/images/custom-images/gyeongnam.png" style="margin-right: 15px;">
+                        <span class="text-center"> 경상남도 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-gyeongnamdo">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="http://코로나19경남.kr/main/main.do" target="_blank">경상남도 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href="https://www.gyeongnam.go.kr/index.gyeong" target="_blank">경상남도 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>경상남도 콜센터<br>
+                                <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">055-211-2114</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-chungbuk" aria-expanded="false" aria-controls="sidebar-chungbuk" class="side-nav-link">
+                        <img src="assets/images/custom-images/chungbuk.png" style="margin-right: 15px;">
+                        <span class="text-center"> 충청북도 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-chungbuk">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="https://www.chungbuk.go.kr/covid-19/index.do" target="_blank">충청북도 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href="https://www.chungbuk.go.kr/www/index.do?firstFlag=no" target="_blank">충청북도 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>충청북도 콜센터<br>
+                                <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">043-220-2114</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-chungnam" aria-expanded="false" aria-controls="sidebar-chungnam" class="side-nav-link">
+                        <img src="assets/images/custom-images/chungnam.png" style="margin-right: 15px;">
+                        <span class="text-center"> 충청남도 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-chungnam">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="http://www.chungnam.go.kr:8100/coronaStatus.do" target="_blank">충청남도 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href="http://www.chungnam.go.kr/main.do" target="_blank">충청남도 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>충청남도 콜센터<br>
+                                <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">041-120</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-gangwon" aria-expanded="false" aria-controls="sidebar-gangwon" class="side-nav-link">
+                        <img src="assets/images/custom-images/gangwon.png" style="margin-right: 15px;">
+                        <span class="text-center"> 강원도 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-gangwon">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="https://www.provin.gangwon.kr/covid-19.html" target="_blank">강원도 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href="https://www.provin.gangwon.kr/gw/portal" target="_blank">강원도 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>강원도 콜센터<br>
+                                <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">033-120</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-jeonbuk" aria-expanded="false" aria-controls="sidebar-jeonbuk" class="side-nav-link">
+                        <img src="assets/images/custom-images/jeonbuk.png" style="margin-right: 15px;">
+                        <span class="text-center"> 전라북도 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-jeonbuk">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="https://www.jeonbuk.go.kr/board/list.jeonbuk?boardId=BBS_0000105&menuCd=DOM_000000110001000000&contentsSid=1219&cpath=" target="_blank">전라북도 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href="https://www.jeonbuk.go.kr/index.jeonbuk" target="_blank">전라북도 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>전라북도 콜센터<br>
+                                <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">063-280-2114</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-jeonnam" aria-expanded="false" aria-controls="sidebar-jeonnam" class="side-nav-link">
+                        <img src="assets/images/custom-images/jeonnam.png" style="margin-right: 15px;">
+                        <span class="text-center"> 전라남도 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-jeonnam">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="https://www.jeonnam.go.kr/corona19Page.do" target="_blank">전라남도 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href="https://www.jeonnam.go.kr/main.do" target="_blank">전라남도 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>전라남도 콜센터<br>
+                                    <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">061-287-0011</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebar-jeju" aria-expanded="false" aria-controls="sidebar-jeju" class="side-nav-link">
+                        <img src="assets/images/custom-images/jeju.png" style="margin-right: 15px;">
+                        <span class="text-center"> 제주특별자치도 </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebar-jeju">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="https://covid19.jeju.go.kr" target="_blank">제주특별자치도 코로나 현황</a>
+                            </li>
+                            <li>
+                                <a href="https://www.jejusi.go.kr/index.ac" target="_blank">제주특별자치도 홈페이지</a>
+                            </li>
+                            <li>
+                                <a>제주특별자치도 콜센터<br>
+                                <img src="assets/images/custom-images/telephone.svg" style="margin-right: 10px;">064-120</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="clearfix"></div>
+
+        </div>
+        <!-- Sidebar -left -->
+
+    </div>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+            <!-- Topbar Start -->
+            <div class="navbar-custom">
+                <ul class="list-unstyled topbar-menu float-end mb-0">
+                    <li class="dropdown notification-list d-lg-none">
+                        <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <i class="dripicons-search noti-icon"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
+                            <form method="GET" action="https://www.google.com/search" target="_blank" class="p-3">
+                                <input type="text" class="form-control" placeholder="검색하기 ..." aria-label="Recipient's username">
+                                <button class="input-group-text bg-info border-info text-white font-13" type="submit">검색</button>
+                            </form>
+                        </div>
+                    </li>
+                    <li>
+                    <li class="dropdown notification-list topbar-dropdown">
+                        <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <h5 class="align-middle d-none d-sm-inline-block align-content-center" th:text="${todayString}">오늘</h5>
+                        </a>
+                        <!--                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu">-->
+
+                        <!--                        </div>-->
+                    </li>
+                    </li>
+                    <li class="dropdown notification-list topbar-dropdown">
+                        <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <img src="assets/images/custom-images/korea_flag.png" alt="user-image" class="me-0 me-sm-1" height="12">
+                            <span class="align-middle d-none d-sm-inline-block">대한민국</span>
+                        </a>
+<!--                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu">-->
+
+<!--                        </div>-->
+                    </li>
+
+                    <li>
+
+                    </li>
+
+                    <li class="dropdown notification-list d-none d-sm-inline-block">
+                        <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                            <i class="dripicons-view-apps noti-icon"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg p-0">
+
+                            <div class="p-2">
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <a class="dropdown-icon-item" href="https://www.changwon.ac.kr/kor/main.do" target="_blank">
+                                            <img src="assets/images/custom-images/changwon_university_logo.png" alt="slack">
+                                            <span>창원대학교</span>
+                                        </a>
+                                    </div>
+                                    <div class="col">
+                                        <a class="dropdown-icon-item" href="https://www.naver.com" target="_blank">
+                                            <img src="assets/images/custom-images/naver.png"alt="Github">
+                                            <span>네이버</span>
+                                        </a>
+                                    </div>
+                                    <div class="col">
+                                        <a class="dropdown-icon-item" href="https://www.google.co.kr" target="_blank">
+                                            <img src="assets/images/custom-images/crome.png" alt="dribbble">
+                                            <span>구글</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="row g-0">
+                                    <div class="col">
+                                        <a class="dropdown-icon-item" href="http://www.mohw.go.kr/react/index.jsp" target="_blank">
+                                            <img src="assets/images/custom-images/public_institutions_mark.png" alt="dropbox">
+                                            <span>보건복지부</span>
+                                        </a>
+                                    </div>
+                                    <div class="col">
+                                        <a class="dropdown-icon-item" href="https://ncvr2.kdca.go.kr/" target="_blank">
+                                            <img src="assets/images/custom-images/public_institutions_mark.png" alt="bitbucket">
+                                            <span>백신 접종 예약</span>
+                                        </a>
+                                    </div>
+                                    <div class="col">
+                                        <a class="dropdown-icon-item" href="https://kdca.go.kr/index.es?sid=a2" target="_blank">
+                                            <img src="assets/images/custom-images/public_institutions_mark.png" alt="G Suite">
+                                            <span>질병관리청</span>
+                                        </a>
+                                    </div>
+                                </div> <!-- end row-->
+                            </div>
+
+                        </div>
+                    </li>
+
+                    <li class="notification-list">
+                        <a class="nav-link end-bar-toggle" href="javascript: void(0);">
+                            <i class="dripicons-gear noti-icon"></i>
+                        </a>
+                    </li>
+
+                    <li class="dropdown notification-list">
+                        <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                           aria-expanded="false">
+                                    <span class="account-user-avatar">
+                                        <img src="assets/images/custom-images/changwon_universitry_logo1.png" alt="user-image" class="rounded-circle">
+                                    </span>
+                            <span>
+                                        <span class="account-user-name">20203041 공태현</span>
+                                        <span class="account-position">창원대학교</span>
+                                    </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated topbar-dropdown-menu profile-dropdown">
+                            <!-- item-->
+                            <div class=" dropdown-header noti-title">
+                                <h6 class="text-overflow m-0">정보</h6>
+                            </div>
+
+                            <!-- item-->
+                            <a href="https://www.changwon.ac.kr/ce/main.do" class="dropdown-item notify-item" target="_blank">
+                                <img src="assets/images/custom-images/changwon_university_logo_mini.png" style="margin-right: 10px;">
+                                <span>컴퓨터공학과 4학년</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="https://github.com/taehyunkongz" class="dropdown-item notify-item" target="_blank">
+                                <img src="assets/images/custom-images/github.png" style="margin-right: 10px;">
+                                <span>taehyunkongz</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <img src="assets/images/custom-images/g_suit_mini.png" style="margin-right: 10px;">
+                                <span>velnuty@gs.cwnu.ac.kr</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <img src="assets/images/custom-images/naver_mini.png" style="margin-right: 10px;">
+                                <span>velnuty@naver.com</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <button class="button-menu-mobile open-left">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+
+                <div class="app-search dropdown d-none d-lg-block">
+                    <form method="get" action="https://www.google.com/search" target="_blank">
+                        <div class="input-group">
+                            <input type="text" class="form-control dropdown-toggle"  placeholder="검색" id="top-search">
+                            <span class="mdi mdi-magnify search-icon"></span>
+                            <button class="input-group-text btn-info" type="submit">검색</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <!-- end Topbar -->
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <!-- start page title -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <div class="page-title-right">
+                                <form class="d-flex" th:action th:object="${clientDateDto}" method="post">
+                                    <div class="input-group">
+                                        <input type="text"  id="dateRangePicker" th:field="*{dateRangePicker}" class="form-control form-control-light">
+                                        <button class="input-group-text bg-info border-info text-white" type="submit">
+                                                    <i class="mdi mdi-calendar-range font-13"></i>
+                                                </button>
+                                    </div>
+                                    <a class="btn btn-info ms-2" onclick="window.location.reload()" >
+                                        <i class="mdi mdi-autorenew"></i>
+                                    </a>
+                                </form>
+                            </div>
+                            <h1 class="page-title">코로나 현황 시각화 웹 서비스</h1>
+                        </div>
+                    </div>
+                </div>
+                <!-- end page title -->
+
+                <div class="row">
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <h5 class="text-muted fw-normal mt-0 text-truncate" title="Campaign Sent">누적 확진수</h5>
+                                        <h4 class="my-2 py-1" th:text="${#numbers.formatInteger(sidoData.totalDto.defCnt, 1, 'COMMA') + '명'}">9,184</h4>
+
+                                        <p th:if="${sparkLineStateAndPercentage1.incAndDecState} == 1" class="mb-0 text-muted">
+                                            전날 대비
+                                            <br><span class="text-danger me-2" th:text="${'(+' + sparkLineStateAndPercentage1.subValue + ')'}"></span>
+                                            <br><span class="text-danger me-2" th:text="${sparkLineStateAndPercentage1.percentage + ' ⬆'}">
+                                                    <i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>
+                                        </p>
+                                        <p th:if="${sparkLineStateAndPercentage1.incAndDecState} == 0" class="mb-0 text-muted">
+                                            전날 대비 <br> <span class="text-info me-2"
+                                                             th:text="${sparkLineStateAndPercentage1.percentage + ' 증감'}"></span>
+                                            <br><span class="text-info me-2">(동일)</span>
+                                        </p>
+                                        <p th:if="${sparkLineStateAndPercentage1.incAndDecState} == -1" class="mb-0 text-muted">
+                                            전날 대비
+                                            <br><span class="text-success me-2" th:text="${'(-' + sparkLineStateAndPercentage1.subValue + ')'}"></span>
+                                            <br><span class="text-success me-2" th:text="${sparkLineStateAndPercentage1.percentage + ' ⬇'}">
+                                                    <i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>
+                                        </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-end">
+                                            <div id="custom-sparkline-chart1" data-colors="#3688fc"></div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end row-->
+                            </div> <!-- end card-body -->
+                        </div> <!-- end card -->
+                    </div> <!-- end col -->
+
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <h5 class="text-muted fw-normal mt-0 text-truncate" title="New Leads">지역 발생수</h5>
+                                        <h4 class="my-2 py-1" th:text="${#numbers.formatInteger(sidoData.totalDto.localOccCnt, 1, 'COMMA') + '명'}">3,254</h4>
+                                        <p th:if="${sparkLineStateAndPercentage2.incAndDecState} == 1" class="mb-0 text-muted">
+                                            전날 대비
+                                            <br><span class="text-danger me-2" th:text="${'(+' + sparkLineStateAndPercentage2.subValue + ')'}"></span>
+                                            <br><span class="text-danger me-2" th:text="${sparkLineStateAndPercentage2.percentage + ' ⬆'}">
+                                                    3.27%</span>
+                                        </p>
+                                        <p th:if="${sparkLineStateAndPercentage2.incAndDecState} == 0" class="mb-0 text-muted">
+                                            전날 대비 <br> <span class="text-info me-2"
+                                                             th:text="${sparkLineStateAndPercentage2.percentage + ' 증감'}"></span>
+                                            <br><span class="text-info me-2">(동일)</span>
+                                        </p>
+                                        <p th:if="${sparkLineStateAndPercentage2.incAndDecState} == -1" class="mb-0 text-muted">
+                                            전날 대비
+                                            <br><span class="text-success me-2" th:text="${'(-' + sparkLineStateAndPercentage2.subValue + ')'}"></span>
+                                            <br><span class="text-success me-2" th:text="${sparkLineStateAndPercentage2.percentage + ' ⬇'}">
+                                                    <i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>
+                                        </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-end">
+                                            <div id="custom-sparkline-chart2" data-colors="#42d29d"></div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end row-->
+                            </div> <!-- end card-body -->
+                        </div> <!-- end card -->
+                    </div> <!-- end col -->
+
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <h5 class="text-muted fw-normal mt-0 text-truncate" title="Deals">해외 유입수</h5>
+                                        <h4 class="my-2 py-1" th:text="${#numbers.formatInteger(sidoData.totalDto.overFlowCnt, 1, 'COMMA') + '명'}">861</h4>
+
+                                        <p th:if="${sparkLineStateAndPercentage3.incAndDecState} == 1" class="mb-0 text-muted">
+                                            전날 대비
+                                            <br><span class="text-danger me-2" th:text="${'(+' + sparkLineStateAndPercentage3.subValue + ')'}"></span>
+                                            <br><span class="text-danger me-2" th:text="${sparkLineStateAndPercentage3.percentage + ' ⬆'}">
+                                                    3.27%</span>
+                                        </p>
+                                        <p th:if="${sparkLineStateAndPercentage3.incAndDecState} == 0" class="mb-0 text-muted">
+                                            전날 대비 <br> <span class="text-info me-2"
+                                                             th:text="${sparkLineStateAndPercentage3.percentage + ' 증감'}"></span>
+                                            <br><span class="text-info me-2">(동일)</span>
+                                        </p>
+                                        <p th:if="${sparkLineStateAndPercentage3.incAndDecState} == -1" class="mb-0 text-muted">
+                                            전날 대비
+                                            <br><span class="text-success me-2" th:text="${'(-' + sparkLineStateAndPercentage3.subValue + ')'}"></span>
+                                            <br><span class="text-success me-2" th:text="${sparkLineStateAndPercentage3.percentage + ' ⬇'}">
+                                                    <i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>
+                                        </p>
+
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-end">
+                                            <div id="custom-sparkline-chart3" data-colors="#3688fc"></div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end row-->
+                            </div> <!-- end card-body -->
+                        </div> <!-- end card -->
+                    </div> <!-- end col -->
+
+
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <h5 class="text-muted fw-normal mt-0 text-truncate" title="Booked Revenue">누적 사망수</h5>
+                                        <h4 class="my-2 py-1" th:text="${#numbers.formatInteger(sidoData.totalDto.deathCnt, 1, 'COMMA') + '명'}">$253k</h4>
+                                        <p th:if="${sparkLineStateAndPercentage4.incAndDecState} == 1" class="mb-0 text-muted">
+                                            전날 대비
+                                            <br><span class="text-danger me-2" th:text="${'(+' + sparkLineStateAndPercentage4.subValue + ')'}"></span>
+                                            <br><span class="text-danger me-2" th:text="${sparkLineStateAndPercentage4.percentage + ' ⬆'}">
+                                                    3.27%</span>
+                                        </p>
+                                        <p th:if="${sparkLineStateAndPercentage4.incAndDecState} == 0" class="mb-0 text-muted">
+                                            전날 대비 <br> <span class="text-info me-2"
+                                                             th:text="${sparkLineStateAndPercentage4.percentage + ' 증감'}"></span>
+                                            <br><span class="text-info me-2">(동일)</span>
+                                        </p>
+                                        <p th:if="${sparkLineStateAndPercentage4.incAndDecState} == -1" class="mb-0 text-muted">
+                                            전날 대비
+                                            <br><span class="text-success me-2" th:text="${'(-' + sparkLineStateAndPercentage4.subValue + ')'}"></span>
+                                            <br><span class="text-success me-2" th:text="${sparkLineStateAndPercentage4.percentage + ' ⬇'}">
+                                                    <i class="mdi mdi-arrow-up-bold"></i> 3.27%</span>
+                                        </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-end">
+                                            <div id="custom-sparkline-chart4" data-colors="#42d29d"></div>
+                                        </div>
+                                    </div>
+                                </div> <!-- end row-->
+                            </div> <!-- end card-body -->
+                        </div> <!-- end card -->
+                    </div> <!-- end col -->
+                </div> <!-- end row -->
+
+
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12">
+                        <div class="card card-h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h3 class="header-title">지역별 확진 현황 (금일)</h3>
+                                    <div class="dropdown">
+                                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div dir="ltr">
+                                    <div id="custom-column-chart1"></div>
+                                    <!-- data-colors="#727cf5, #e3eaef" -->
+                                </div>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end col -->
+                </div>
+                <!-- end row -->
+
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h3 class="header-title">지난 7일간 확진 현황</h3>
+                                    <div class="dropdown">
+                                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="chart-content-bg">
+                                    <div class="row text-center">
+                                        <div class="col-sm-6">
+                                            <p class="text-muted mb-0 mt-3">지난 7일간 전국 누적 확진자</p>
+                                            <h3 class="fw-normal mb-3">
+                                                <small class="mdi mdi-checkbox-blank-circle text-info align-middle me-1"></small>
+                                                <span th:text="${#numbers.formatInteger(defCountSumTotal, 3, 'COMMA') + '명'}"></span>
+                                            </h3>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <p class="text-muted mb-0 mt-3" id="week-text">지난 7일간 부산시 누적 확진자</p>
+                                            <h3 class="fw-normal mb-3">
+                                                <small class="mdi mdi-checkbox-blank-circle text-success align-middle me-1"></small>
+                                                <span id="week-value" th:text="${#numbers.formatInteger(defCountSumBusan, 3, 'COMMA') + '명'}"></span>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div dir="ltr" id="line-chart-wrap">
+                                    <div id="custom-line-chart"></div>
+                                    <!-- "#727cf5,#0acf97" -->
+                                </div>
+                            </div>
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h3 class="header-title">대한민국 미니맵</h3>
+                                    <div class="dropdown">
+                                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-4 mt-3">
+                                    <div id="mini-map-wrap">
+                                        <img src="assets/images/custom-images/korea_map.png" alt="minimap">
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-busan" id="btn-busan"
+                                                onclick="destroyDefaultChart();renderLineChart('부산');selectFunctionByDateState('부산');">부산</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-ulsan" id="btn-ulsan"
+                                                onclick="destroyDefaultChart();renderLineChart('울산');selectFunctionByDateState('울산')">울산</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-gyeongnam" id="btn-gyeongnam"
+                                                onclick="destroyDefaultChart();renderLineChart('경남');selectFunctionByDateState('경남')">경남</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-gyeongbuk" id="btn-gyeongbuk"
+                                                onclick="destroyDefaultChart();renderLineChart('경북');selectFunctionByDateState('경북')">경북</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-daegu" id="btn-daegu"
+                                                onclick="destroyDefaultChart();renderLineChart('대구');selectFunctionByDateState('대구')">대구</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-jeonbuk" id="btn-jeonbuk"
+                                                onclick="destroyDefaultChart();renderLineChart('전북');selectFunctionByDateState('전북')">전북</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-jeonnam" id="btn-jeonnam"
+                                                onclick="destroyDefaultChart();renderLineChart('전남');selectFunctionByDateState('전남')">전남</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-gwangju" id="btn-gwangju"
+                                                onclick="destroyDefaultChart();renderLineChart('광주');selectFunctionByDateState('광주')">광주</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-jeju" id="btn-jeju"
+                                                onclick="destroyDefaultChart();renderLineChart('제주');selectFunctionByDateState('제주')">제주</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-chungbuk" id="btn-chungbuk"
+                                                onclick="destroyDefaultChart();renderLineChart('충북');selectFunctionByDateState('충북')">충북</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-chungnam" id="btn-chungnam"
+                                                onclick="destroyDefaultChart();renderLineChart('충남');selectFunctionByDateState('충남')">충남</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-daejeon" id="btn-daejeon"
+                                                onclick="destroyDefaultChart();renderLineChart('대전');selectFunctionByDateState('대전')">대전</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-sejong" id="btn-sejong"
+                                                onclick="destroyDefaultChart();renderLineChart('세종');selectFunctionByDateState('세종')">세종</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-gangwon" id="btn-gangwon"
+                                                onclick="destroyDefaultChart();renderLineChart('강원');selectFunctionByDateState('강원')">강원</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-incheon" id="btn-incheon"
+                                                onclick="destroyDefaultChart();renderLineChart('인천');selectFunctionByDateState('인천')">인천</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-gyeonggi" id="btn-gyeonggi"
+                                                onclick="destroyDefaultChart();renderLineChart('경기');selectFunctionByDateState('경기')">경기</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-seoul" id="btn-seoul"
+                                                onclick="destroyDefaultChart();renderLineChart('서울');selectFunctionByDateState('서울')">서울</button>
+                                        <button type="button" class="btn btn-light rounded-pill rounded-pill btn-lazaretto" id="btn-lazaretto"
+                                                onclick="destroyDefaultChart();renderLineChart('해외유입');selectFunctionByDateState('해외')">해외유입</button>
+                                    </div>
+                                </div>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h3 class="header-title">지역별 현황</h3>
+                                    <div class="dropdown">
+                                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="mb-2 mt-2">
+                                        <div id="custom-donut-chart"></div>
+                                    </div>
+
+                                <div class="chart-content-bg">
+                                    <div class="chart-widget-list">
+                                        <p>
+                                            <i class="mdi mdi-square text-dark" ></i> 누적 확진자
+                                            <span class="float-end" id="today-def-cnt"
+                                                  th:text="${busanSubDto.defCntSub + #numbers.formatInteger(sidoData.busanDto.defCnt, 1, 'COMMA') + '명'}">$135.18</span>
+                                        </p>
+                                        <p>
+                                            <i class="mdi mdi-square text-dark" ></i> 금일 확진자
+                                            <span class="float-end" id="today-incdec-cnt"
+                                                  th:text="${busanSubDto.incDecCntSub + #numbers.formatInteger(sidoData.busanDto.incDec, 1, 'COMMA') + ' 명'}">$135.18</span>
+                                        </p>
+                                        <p>
+                                            <i class="mdi mdi-square text-dark" ></i> 지역 발생
+                                            <span class="float-end" id="local-occ-cnt"
+                                                  th:text="${busanSubDto.locOccCntSub + #numbers.formatInteger(sidoData.busanDto.localOccCnt, 1, 'COMMA') + ' 명'}">$135.18</span>
+                                        </p>
+                                        <p>
+                                            <i class="mdi mdi-square text-dark" ></i> 해외 유입
+                                            <span class="float-end" id="overflow-cnt"
+                                                  th:text="${busanSubDto.overFlowCntSub + #numbers.formatInteger(sidoData.busanDto.overFlowCnt, 1, 'COMMA') + ' 명'}">$135.18</span>
+                                        </p>
+                                        <p >
+                                            <i class="mdi mdi-square text-dark"></i> 누적 사망수
+                                            <span class="float-end" id="death-cnt"
+                                                  th:text="${busanSubDto.deathCntSub + #numbers.formatInteger(sidoData.busanDto.deathCnt, 1, 'COMMA') + ' 명'}">$48.96</span>
+                                        </p>
+                                        <p th:if="${dateState} == 1">
+                                            <i class="mdi mdi-square text-dark"></i> 1차 접종률
+                                            <span class="float-end" id="vaccine-first-cnt1"
+                                                  th:text="${busanSubDto.firstCntSub + busanTotalFirstCountDefault + ' %'}">$154.02</span>
+                                        </p>
+                                        <p th:unless="${dateState} == 1">
+                                            <i class="mdi mdi-square text-dark"></i> 1차 접종률
+                                            <span class="float-end" id="vaccine-first-cnt0">0.0 %</span>
+                                        </p>
+                                        <p th:if="${dateState} == 1">
+                                            <i class="mdi mdi-square text-dark"></i> 2차 접종률
+                                            <span class="float-end" id="vaccine-second-cnt1"
+                                                  th:text="${busanSubDto.secondCntSub + busanTotalSecondCountDefault + ' %'}">$154.02</span>
+                                        </p>
+                                        <p th:unless="${dateState} == 1">
+                                            <i class="mdi mdi-square text-dark"></i> 2차 접종률
+                                            <span class="float-end" id="vaccine-second-cnt0">0.0 %</span>
+                                        </p>
+                                        <p th:if="${dateState} == 1">
+                                            <i class="mdi mdi-square text-dark"></i> 3차 접종률
+                                            <span class="float-end" id="vaccine-third-cnt1"
+                                                  th:text="${busanSubDto.thirdCntSub + busanTotalThirdCountDefault + ' %'}">$154.02</span>
+                                        </p>
+                                        <p th:unless="${dateState} == 1">
+                                            <i class="mdi mdi-square text-dark"></i> 3차 접종률
+                                            <span class="float-end" id="vaccine-third-cnt0">0.0 %</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="input-group d-flex">
+                                    <i class="mdi mdi-square text-dark" style="margin-right: 5px;"></i> 코로나 현황 바로가기
+                                        <a href="https://www.busan.go.kr/covid19/" target="_blank" id="donut-chart-href">
+                                        <img src="assets/images/custom-images/busan_btn.png" style="margin-left: 50px;"
+                                             class="bg-white rounded border-white align-content-center" id="donut-chart-btn-img">
+                                        </a>
+                                </div>
+
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+                </div><!-- end row -->
+
+                <div class="row">
+                    <div class="col-lg-4">
+<!--                    <div class="col-xl-4 col-lg-12 order-lg-2 order-xl-1">-->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h3 class="header-title">전국 백신 접종현황</h3>
+                                    <div class="dropdown">
+                                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 mt-3">
+                                    <div id="custom-radialBar-chart"></div>
+                                </div>
+                                <div class="row text-center mt-3">
+                                    <div class="col-sm-4">
+                                        <img src="assets/images/custom-images/shield.svg" class="widget-icon rounded-circle bg-light-lighten text-muted">
+                                        <h3 class="fw-normal mt-3" th:if="${dateState} == 1">
+                                            <span th:text="${totalVaccineRateData.totalVaccineFirstRateStr}">
+                                                6,510</span>
+                                        </h3>
+                                        <h3 class="fw-normal mt-3" th:unless="${dateState} == 1">
+                                            <span>0.0%</span>
+                                        </h3>
+                                        <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle text-warning"></i> 1차 접종률</p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <img src="assets/images/custom-images/shield-shaded.svg" class="widget-icon rounded-circle bg-light-lighten text-muted">
+                                        <h3 class="fw-normal mt-3" th:if="${dateState} == 1">
+                                            <span th:text="${totalVaccineRateData.totalVaccineSecondRateStr}">
+                                                6,510</span>
+                                        </h3>
+                                        <h3 class="fw-normal mt-3" th:unless="${dateState} == 1">
+                                            <span>0.0%</span>
+                                        </h3>
+                                        <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle text-info"></i> 2차 접종률</p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <img src="assets/images/custom-images/shield-fill.svg" class="widget-icon rounded-circle bg-light-lighten text-muted">
+                                        <h3 class="fw-normal mt-3" th:if="${dateState} == 1">
+                                        <span th:text="${totalVaccineRateData.totalVaccineThirdRateStr}">
+                                                6,510</span>
+                                        </h3>
+                                        <h3 class="fw-normal mt-3" th:unless="${dateState} == 1">
+                                            <span>0.0%</span>
+                                        </h3>
+                                        <p class="text-muted mb-0 mb-2"><i class="mdi mdi-checkbox-blank-circle text-success"></i> 3차 접종률</p>
+                                    </div>
+                                </div>
+
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+
+<!--                    <div class="col-xl-5 col-lg-6 order-lg-1">-->
+                    <div class="col-lg-5">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h3 class="header-title">연령별 현황</h3>
+                                    <div class="dropdown">
+                                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 mt-3">
+                                    <div id="custom-pie-chart"></div>
+                                </div>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+
+                    <div class="col-lg-3">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h3 class="header-title">성별 현황</h3>
+                                    <div class="dropdown">
+                                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="mdi mdi-dots-vertical"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Sales Report</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Export Report</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Profit</a>
+                                            <!-- item-->
+                                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-2 mt-2">
+                                    <div id="custom-column-chart2" class="apex-charts"></div>
+                                </div>
+                            </div> <!-- end card-body-->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- container -->
+        </div>
+        <!-- content -->
+
+        <!-- Footer Start -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <script>document.write(new Date().getFullYear())</script> © 공공포털 데이터 제공
+                    </div>
+                    <div class="col-md-6">
+                        <div class="text-md-end footer-links d-none d-md-block">
+                            <a href="https://github.com/taehyunkongz" target="_blank">
+                                <img src="assets/images/custom-images/github1.png" style="margin-right: 10px">taehyunkongz</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- end Footer -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+<!-- Right Sidebar -->
+<div class="end-bar">
+
+    <div class="rightbar-title">
+        <a href="javascript:void(0);" class="end-bar-toggle float-end">
+            <i class="dripicons-cross noti-icon"></i>
+        </a>
+        <h5 class="m-0">설정</h5>
+    </div>
+
+    <div class="rightbar-content h-100" data-simplebar>
+
+        <div class="p-3">
+            <div class="alert alert-warning" role="alert">
+                <strong>사용자가 원하는대로 화면 모드, 사이드바 메뉴와 기타 등등을 커스텀 하세요. </strong>
+            </div>
+
+            <!-- Settings -->
+            <h5 class="mt-3">화면 모드</h5>
+            <hr class="mt-1" />
+
+            <div class="form-check form-switch mb-1">
+                <input class="form-check-input" type="checkbox" name="color-scheme-mode" value="light" id="light-mode-check" checked>
+                <label class="form-check-label" for="light-mode-check">Light Mode</label>
+            </div>
+
+            <div class="form-check form-switch mb-1">
+                <input class="form-check-input" type="checkbox" name="color-scheme-mode" value="dark" id="dark-mode-check">
+                <label class="form-check-label" for="dark-mode-check">Dark Mode</label>
+            </div>
+
+
+            <!-- Width -->
+            <h5 class="mt-4">화면 넓이</h5>
+            <hr class="mt-1" />
+            <div class="form-check form-switch mb-1">
+                <input class="form-check-input" type="checkbox" name="width" value="fluid" id="fluid-check" checked>
+                <label class="form-check-label" for="fluid-check">Fluid</label>
+            </div>
+
+            <div class="form-check form-switch mb-1">
+                <input class="form-check-input" type="checkbox" name="width" value="boxed" id="boxed-check">
+                <label class="form-check-label" for="boxed-check">Boxed</label>
+            </div>
+
+
+            <!-- Left Sidebar-->
+            <h5 class="mt-4">사이드 바</h5>
+            <hr class="mt-1" />
+            <div class="form-check form-switch mb-1">
+                <input class="form-check-input" type="checkbox" name="theme" value="default" id="default-check">
+                <label class="form-check-label" for="default-check">Default</label>
+            </div>
+
+            <div class="form-check form-switch mb-1">
+                <input class="form-check-input" type="checkbox" name="theme" value="light" id="light-check" checked>
+                <label class="form-check-label" for="light-check">Light</label>
+            </div>
+
+            <div class="form-check form-switch mb-3">
+                <input class="form-check-input" type="checkbox" name="theme" value="dark" id="dark-check">
+                <label class="form-check-label" for="dark-check">Dark</label>
+            </div>
+
+            <div class="form-check form-switch mb-1">
+                <input class="form-check-input" type="checkbox" name="compact" value="fixed" id="fixed-check" checked>
+                <label class="form-check-label" for="fixed-check">Fixed</label>
+            </div>
+
+            <div class="form-check form-switch mb-1">
+                <input class="form-check-input" type="checkbox" name="compact" value="condensed" id="condensed-check">
+                <label class="form-check-label" for="condensed-check">Condensed</label>
+            </div>
+
+            <div class="form-check form-switch mb-1">
+                <input class="form-check-input" type="checkbox" name="compact" value="scrollable" id="scrollable-check">
+                <label class="form-check-label" for="scrollable-check">Scrollable</label>
+            </div>
+
+            <div class="d-grid mt-4">
+                <button class="btn btn-info" id="resetBtn">설정 초기화</button>
+            </div>
+        </div> <!-- end padding-->
+    </div>
+</div>
+
+<div class="rightbar-overlay"></div>
+<!-- /End-bar -->
+
+<script th:inline="javascript">
+    var defaultLineChart;
+    var defaultPieChart;
+    window.onload = function () {
+
+        (function defaultColumn1ChartDraw() {
+            var options1 = {
+                chart: {
+                    type: 'bar',
+                    height: '370px'
+                },
+                series: [{
+                    name: '확진자',
+                    data: [[${allSidoDefCntArr}]]
+                }],
+
+                plotOptions: {
+                    bar: {
+                        endingShape: 'rounded'
+                    }
+                },
+                dataLabels: {
+                    formatter: function (value) {
+                        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+                    },
+                },
+
+                xaxis: {
+                    categories: ['서울', '경기', '인천', '세종', '부산', '울산', '대구', '경북', '경남', '대전', '충북', '충남', '강원', '광주', '전북', '전남', '제주', '해외']
+                },
+                yaxis: {
+                    title: {
+                        text: '금일 확진(명)'
+                    }
+                },
+                fill: {
+                    colors: ['#44badc'],
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'white',
+                        type: "horizontal",
+                        shadeIntensity: 0.5,
+                        // gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
+                        // inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 50, 100],
+                        colorStops: []
+                    }
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 0,
+                    left: 0,
+                    blur: 3,
+                    opacity: 0.5
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (value) {
+                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+                        },
+                    }
+                }
+            };
+
+            var defaultColumnChart1 = new ApexCharts(document.querySelector("#custom-column-chart1"), options1);
+            defaultColumnChart1.render();
+
+        })();
+
+        (function defaultLineChartDraw() {
+            var options2 = {
+                chart: {
+                    type: 'line',
+                    height: '470px'
+                },
+                series: [
+                    {
+                        name: '전국 확진자',
+                        data: [[${defCountArrTotal}]]
+                    },
+                    {
+                        name: '부산시 확진자',
+                        data: [[${defCountArrBusan}]]
+                    }
+                ],
+                colors: ["#44badc", "#10c469"],
+
+                stroke: {
+                    curve: 'smooth'
+                },
+                xaxis: {
+                    categories: [[${monthAndDayArr}]]
+                },
+                yaxis: {
+                    axisTicks: {
+                        show: true
+                    },
+                    axisBorder: {
+                        show: true,
+                    },
+                    title: {
+                        text: "누적 확진자 (명)",
+                    }
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'white',
+                        type: "horizontal",
+                        shadeIntensity: 0.5,
+                        // gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
+                        // inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 50, 100],
+                        colorStops: []
+                    }
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (value) {
+                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+                        },
+                    }
+                }
+            };
+
+            defaultLineChart = new ApexCharts(document.querySelector("#custom-line-chart"), options2);
+            defaultLineChart.render();
+        })();
+
+        (function defaultdDonutChartDraw() {
+
+            var options3 = {
+                chart: {
+                    type: 'donut',
+                    width: '100%'
+                },
+                name: '확진자',
+                series: [[${donutChartArrBusan}]],
+
+                colors: ["#e3eaef", "#44badc"],
+                labels: ['전국', '부산'],
+
+                dataLabels: {
+                    enabled: true,
+                },
+
+                fill: {
+                   <!-- 회색, 보라색-->
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'white',
+                        type: "horizontal",
+                        shadeIntensity: 0.5,
+                        // gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
+                        // inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 50, 100],
+                        colorStops: []
+                    }
+                },
+                legend: {
+                    position: 'bottom',
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 0,
+                    left: 0,
+                    blur: 3,
+                    opacity: 0.5
+                },
+                title: {
+                    text: '부산시 확진자 현황',
+                    align: 'center'
+                },
+                tooltip: {
+                        formatter: function (value) {
+                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+                        },
+                }
+
+            };
+            defaultPieChart = new ApexCharts(document.querySelector("#custom-donut-chart"), options3);
+            defaultPieChart.render();
+        })();
+
+        (function defaultRadialBarChartDraw() {
+            var options4 = {
+                chart: {
+                    type: 'radialBar',
+                    height: '400px'
+                },
+                series: [[${radialBarChartArrTotal}]],
+                labels: ['1차 접종률', '2차 접종률', '3차 접종률'],
+                colors: ["#ffa866", "#44badc", "#0acf97"],
+
+                plotOptions: {
+                    radialBar: {
+                        track: {
+                            margin: 8
+                        }
+                    },
+                    bar: {
+                        endingShape: 'rounded'
+                    }
+                },
+
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'white',
+                        type: "horizontal",
+                        shadeIntensity: 0.5,
+                        // gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
+                        // inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 50, 100],
+                        colorStops: []
+                    }
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 0,
+                    left: 0,
+                    blur: 3,
+                    opacity: 0.5
+                }
+            };
+
+            var defaultColumnChart = new ApexCharts(document.querySelector("#custom-radialBar-chart"), options4);
+            defaultColumnChart.render();
+
+        })();
+
+        (function defaultPieChartDraw() {
+            var options5 = {
+                series: [{
+                    name: '확진자',
+                    data: [[${pieChartArr}]]
+                }],
+                chart: {
+                    type: 'bar',
+                    height: '500px'
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: true,
+                        borderRadius: 5,
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: function (value) {
+                        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+                    },
+                },
+
+                colors: ["#44badc"],
+                xaxis: {
+                    categories: ['80대 ⬆', '70대', '60대', '50대', '40대', '30대', '20대', '10대', '10대 ⬇'],
+                    title: {
+                        text: "누적 확진자 (명)",
+                    },
+                },
+                yaxis: {
+                    axisTicks: {
+                        show: true
+                    },
+                    axisBorder: {
+                        show: true,
+                    },
+                },
+
+                fill: {
+                    <!-- 회색, 보라색-->
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'white',
+                        type: "horizontal",
+                        shadeIntensity: 0.5,
+                        // gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
+                        // inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 50, 100],
+                        colorStops: []
+                    }
+                },
+                legend: {
+                    position: 'bottom',
+                    textColor: 'white',
+                    size: 15,
+
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 0,
+                    left: 0,
+                    blur: 3,
+                    opacity: 0.5
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (value) {
+                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+                        },
+                    }
+                }
+            };
+            var defaultBarChart = new ApexCharts(document.querySelector("#custom-pie-chart"), options5);
+            defaultBarChart.render();
+
+        })();
+
+        (function defaultColumn2ChartDraw() {
+            var options6 = {
+                chart: {
+                    type: 'bar',
+                    height: '530px'
+                },
+                series: [{
+                    name: '확진자',
+                    data: [[${columnChartArr}]]
+                }],
+
+                plotOptions: {
+                    bar: {
+                        endingShape: 'rounded',
+                        columnWidth: "87%"
+                    }
+                },
+                dataLabels: {
+                    formatter: function (value) {
+                        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+                    },
+                },
+
+                xaxis: {
+                    categories: ['남성', '여성']
+                },
+                yaxis: {
+                    title: {
+                        text: '금일 확진(명)'
+                    }
+                },
+                fill: {
+                    colors: ['#44badc'],
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'white',
+                        type: "horizontal",
+                        shadeIntensity: 0.5,
+                        // gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
+                        // inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 50, 100],
+                        colorStops: []
+                    }
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 0,
+                    left: 0,
+                    blur: 3,
+                    opacity: 0.5
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (value) {
+                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+                        },
+                    }
+                }
+            };
+
+            var defaultColumnChart2 = new ApexCharts(document.querySelector("#custom-column-chart2"), options6);
+            defaultColumnChart2.render();
+
+        })();
+
+        (function defaultSparkLineChart1Draw() {
+
+            var dataState = [[${sparkLineStateAndPercentage1.incAndDecState}]]
+            var colors;
+
+            if (dataState == 1) {
+                colors = ['#c42810']
+
+            }
+            else if (dataState == 0) {
+                colors = ['#44badc']
+
+            }
+            else {
+                colors = ['#10c469']
+            }
+
+            var sparkLine1 = {
+                chart: {
+                    type: 'line',
+                    height: '60px',
+                    sparkline: {
+                        enabled: true
+                    }
+                },
+                series: [{
+                    name: '누적 확진자',
+                    data: [[${defCntSparkLineArrTotal}]]
+                }],
+                colors: colors,
+                plotOptions: {
+                    bar: {
+                        endingShape: 'rounded',
+                        columnWidth: "60%"
+                    }
+                },
+                labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+                xaxis: {
+                    crosshairs: {
+                        width: 1
+                    }
+                },
+                tooltip:{
+                    fixed: {
+                        enabled: false
+                    },
+                    x: {
+                        show: false,
+                        title: {
+                            formatter: function () {
+                                return "날짜"
+                            }
+                        },
+                    },
+                    y: {
+                        formatter: function (value) {
+                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+                        },
+                    },
+                    marker: {
+                        show: false
+                    }
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'white',
+                        type: "horizontal",
+                        shadeIntensity: 0.5,
+                        // gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
+                        // inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 50, 100],
+                        colorStops: []
+                    }
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 0,
+                    left: 0,
+                    blur: 3,
+                    opacity: 0.5
+                },
+            };
+
+            var defaultSparkLineChart1 = new ApexCharts(document.querySelector("#custom-sparkline-chart1"), sparkLine1);
+            defaultSparkLineChart1.render();
+
+        })();
+
+        (function defaultSparkLineChart2Draw() {
+
+            var dataState = [[${sparkLineStateAndPercentage2.incAndDecState}]]
+            var colors;
+
+            if (dataState == 1) {
+                colors = ['#c42810']
+
+            }
+            else if (dataState == 0) {
+                colors = ['#44badc']
+
+            }
+            else {
+                colors = ['#10c469']
+            }
+
+            var sparkLine2 = {
+                chart: {
+                    type: 'line',
+                    height: '60px',
+                    sparkline: {
+                        enabled: true
+                    }
+                },
+                series: [{
+                    name: '지역 발생',
+                    data: [[${localOccCountSparkLineArrTotal}]]
+                }],
+                colors: colors,
+                plotOptions: {
+                    bar: {
+                        endingShape: 'rounded',
+                        columnWidth: "60%"
+                    }
+                },
+                labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+                xaxis: {
+                    crosshairs: {
+                        width: 1
+                    }
+                },
+                tooltip:{
+                    fixed: {
+                        enabled: false
+                    },
+                    x: {
+                        show: false,
+                        title: {
+                            formatter: function () {
+                                return "날짜"
+                            }
+                        },
+                    },
+                    y: {
+                        formatter: function (value) {
+                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+                        },
+                    },
+                    marker: {
+                        show: false
+                    }
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'white',
+                        type: "horizontal",
+                        shadeIntensity: 0.5,
+                        // gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
+                        // inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 50, 100],
+                        colorStops: []
+                    }
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 0,
+                    left: 0,
+                    blur: 3,
+                    opacity: 0.5
+                }
+            };
+
+            var defaultSparkLineChart2 = new ApexCharts(document.querySelector("#custom-sparkline-chart2"), sparkLine2);
+            defaultSparkLineChart2.render();
+
+        })();
+
+        (function defaultSparkLineChart3Draw() {
+
+            var dataState = [[${sparkLineStateAndPercentage3.incAndDecState}]]
+            var colors;
+
+            if (dataState == 1) {
+                colors = ['#c42810']
+
+            }
+            else if (dataState == 0) {
+                colors = ['#44badc']
+
+            }
+            else {
+                colors = ['#10c469']
+            }
+
+            var sparkLine3 = {
+                chart: {
+                    type: 'line',
+                    height: '60px',
+                    sparkline: {
+                        enabled: true
+                    }
+                },
+                series: [{
+                    name: '해외 유입',
+                    data: [[${overFlowCountSparkLineArrTotal}]]
+                }],
+                colors: colors,
+                plotOptions: {
+                    bar: {
+                        endingShape: 'rounded',
+                        columnWidth: "60%"
+                    }
+                },
+                labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+                xaxis: {
+                    crosshairs: {
+                        width: 1
+                    }
+                },
+                tooltip:{
+                    fixed: {
+                        enabled: false
+                    },
+                    x: {
+                        show: false,
+                        title: {
+                            formatter: function () {
+                                return "날짜"
+                            }
+                        },
+                    },
+                    y: {
+                        formatter: function (value) {
+                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+                        },
+                    },
+                    marker: {
+                        show: false
+                    }
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'white',
+                        type: "horizontal",
+                        shadeIntensity: 0.5,
+                        // gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
+                        // inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 50, 100],
+                        colorStops: []
+                    }
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 0,
+                    left: 0,
+                    blur: 3,
+                    opacity: 0.5
+                }
+            };
+
+            var defaultSparkLineChart3 = new ApexCharts(document.querySelector("#custom-sparkline-chart3"), sparkLine3);
+            defaultSparkLineChart3.render();
+
+        })();
+
+        (function defaultSparkLineChart4Draw() {
+
+            var dataState = [[${sparkLineStateAndPercentage4.incAndDecState}]]
+            var colors;
+
+            if (dataState == 1) {
+                colors = ['#c42810']
+
+            }
+            else if (dataState == 0) {
+                colors = ['#44badc']
+
+            }
+            else {
+                colors = ['#10c469']
+            }
+
+            var sparkLine4 = {
+                chart: {
+                    type: 'line',
+                    height: '60px',
+                    sparkline: {
+                        enabled: true
+                    }
+                },
+                series: [{
+                    name: '사망자',
+                    data: [[${deathCountSparkLineArrTotal}]]
+                }],
+                colors: colors,
+                plotOptions: {
+                    bar: {
+                        endingShape: 'rounded',
+                        columnWidth: "60%"
+                    }
+                },
+                labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+                xaxis: {
+                    crosshairs: {
+                        width: 1
+                    }
+                },
+                tooltip:{
+                    fixed: {
+                        enabled: false
+                    },
+                    x: {
+                        show: false,
+                        title: {
+                            formatter: function () {
+                                return "날짜"
+                            }
+                        },
+                    },
+                    y: {
+                        formatter: function (value) {
+                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+                        },
+                    },
+                    marker: {
+                        show: false
+                    }
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'white',
+                        type: "horizontal",
+                        shadeIntensity: 0.5,
+                        // gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
+                        // inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 50, 100],
+                        colorStops: []
+                    }
+                },
+                dropShadow: {
+                    enabled: true,
+                    top: 0,
+                    left: 0,
+                    blur: 3,
+                    opacity: 0.5
+                }
+            };
+
+            var defaultSparkLineChart4 = new ApexCharts(document.querySelector("#custom-sparkline-chart4"), sparkLine4);
+            defaultSparkLineChart4.render();
+
+        })();
+
+        $(function () {
+            $('#dateRangePicker').daterangepicker({
+                locale: {
+                    format: 'YYYY-MM-DD',
+                    applyLabel: '적용',
+                    cancelLabel: '취소',
+                    daysOfWeek: ['일', '월', '화', '수', '목', '금', '토'],
+                    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+                },
+                autoUpdateInput: true,
+                autoApply: true,
+                singleDatePicker: true,
+                startDate: [[${today}]],
+                endDate: "2025/05/27",
+                minDate: "2020/04/01",
+                maxDate: [[${maxDate}]],
+                opens: "left",
+                applyButtonClasses: "btn-apply",
+                cancelClass: "btn-cancel"
+            })
+        });
+
+
+
+    };
+
+
+    function destroyDefaultChart() {
+        window.defaultLineChart.destroy();
+        window.defaultPieChart.destroy();
+    }
+
+
+    var lineChart;
+
+    function renderLineChart(sido) {
+
+        var value;
+        document.getElementById("week-text").innerText = '지난 7일간 ' + sido + '누적 확진자';
+
+        if (sido === '부산') {
+            // document.getElementById('btn-busan').addEventListener('click', renderLineChart);
+            value = [[${defCountSumBusan}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+
+            drawLineChart([[${defCountArrBusan}]], sido)
+
+        }
+        else if (sido === '충북') {
+            // document.getElementById('btn-chungbuk').addEventListener('click', renderLineChart);
+            value = [[${defCountSumChungbuk}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+
+            drawLineChart([[${defCountArrChungbuk}]], sido)
+        }
+        else if (sido === '충남') {
+            // document.getElementById('btn-chungnam').addEventListener('click', renderLineChart);
+            value = [[${defCountSumChungnam}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+
+            drawLineChart([[${defCountArrChungnam}]], sido)
+        }
+        else if (sido === '대구') {
+            // document.getElementById('btn-daegu').addEventListener('click', renderLineChart);
+            value = [[${defCountSumDaegu}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+
+            drawLineChart([[${defCountArrDaegu}]], sido)
+        }
+        else if (sido === '대전') {
+            // document.getElementById('btn-daejeon').addEventListener('click', renderLineChart);
+            value = [[${defCountSumDaejeon}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+
+            drawLineChart([[${defCountArrDaejeon}]], sido)
+        }
+        else if (sido === '강원') {
+            // document.getElementById('btn-gangwon').addEventListener('click', renderLineChart);
+            value = [[${defCountSumGangwon}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+
+            drawLineChart([[${defCountArrGangwon}]], sido)
+        }
+        else if (sido === '광주') {
+            // document.getElementById('btn-gwangju').addEventListener('click', renderLineChart);
+            value = [[${defCountSumGwangju}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+
+            drawLineChart([[${defCountArrGwangju}]], sido)
+        }
+        else if (sido === '경북') {
+            // document.getElementById('btn-gyeongbuk').addEventListener('click', renderLineChart);
+            value = [[${defCountSumGyeongbuk}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+
+            drawLineChart([[${defCountArrGyeongbuk}]], sido)
+        }
+        else if (sido === '경기') {
+            // document.getElementById('btn-gyeonggi').addEventListener('click', renderLineChart);
+            value = [[${defCountSumGyeonggi}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+
+            drawLineChart([[${defCountArrGyeonggi}]], sido)
+        }
+        else if (sido === '경남') {
+            // document.getElementById('btn-gyeongnam').addEventListener('click', renderLineChart);
+            value = [[${defCountSumGyeongnam}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+
+            drawLineChart([[${defCountArrGyeongnam}]], sido)
+        }
+        else if (sido === '인천') {
+            // document.getElementById('btn-incheon').addEventListener('click', renderLineChart);
+            value = [[${defCountSumIncheon}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+
+            drawLineChart([[${defCountArrIncheon}]], sido)
+        }
+        else if (sido === '제주') {
+            // document.getElementById('btn-jeju').addEventListener('click', renderLineChart);
+            value = [[${defCountSumJeju}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+
+            drawLineChart([[${defCountArrJeju}]], sido)
+        }
+        else if (sido === '전북') {
+            // document.getElementById('btn-jeonbuk').addEventListener('click', renderLineChart);
+            value = [[${defCountSumJeonbuk}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+
+            drawLineChart([[${defCountArrJeonbuk}]], sido)
+        }
+        else if (sido === '전남') {
+            // document.getElementById('btn-jeonnam').addEventListener('click', renderLineChart);
+            value = [[${defCountSumJeonnam}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+            drawLineChart([[${defCountArrJeonnam}]], sido)
+
+        }
+        else if (sido === '해외') {
+            // document.getElementById('btn-lazaretto').addEventListener('click', renderLineChart);
+            value = [[${defCountSumLazaretto}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+
+            drawLineChart([[${defCountArrLazaretto}]], sido)
+        }
+        else if (sido === '세종') {
+            // document.getElementById('btn-sejong').addEventListener('click', renderLineChart);
+            value = [[${defCountSumSejong}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+
+            drawLineChart([[${defCountArrSejong}]], sido)
+        }
+        else if (sido === '서울') {
+            // document.getElementById('btn-seoul').addEventListener('click', renderLineChart);
+            value = [[${defCountSumSeoul}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+
+            drawLineChart([[${defCountArrSeoul}]], sido)
+        }
+        else {
+            // document.getElementById('btn-ulsan').addEventListener('click', renderLineChart);
+            value = [[${defCountSumUlsan}]]
+            document.getElementById("week-value").innerText = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' 명';
+
+            drawLineChart([[${defCountArrUlsan}]], sido)
+        }
+
+    }
+
+        function drawLineChart(sidoIncdecArr, sidoName) {
+
+            if (window.lineChart != null) {
+                window.lineChart.destroy();
+            }
+
+            window.lineChart = new ApexCharts(document.querySelector("#custom-line-chart"), {
+                    chart: {
+                        type: 'line',
+                        height: '500px'
+                    },
+                series: [
+                    {
+                        name: '전국 확진자',
+                        data: [[${defCountArrTotal}]]
+                    },
+                    {
+                        name: sidoName + ' 확진자 (명)',
+                        data: sidoIncdecArr
+                    }
+                ],
+                colors: ["#44badc", "#10c469"],
+
+
+                stroke: {
+                    curve: 'smooth'
+                },
+                xaxis: {
+                    categories: [[${monthAndDayArr}]]
+                },
+                yaxis: {
+                    axisTicks: {
+                        show: true
+                    },
+                    axisBorder: {
+                        show: true,
+                    },
+                    title: {
+                        text: "누적 확진자 (명)",
+                    }
+                },
+                fill: {
+                    // '#536de6','#e3eaef'
+                    // '#727cf5''#e3eaef'
+                    type: 'gradient',
+                    gradient: {
+                        shade: 'white',
+                        type: "horizontal",
+                        shadeIntensity: 0.5,
+                        // gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
+                        // inverseColors: true,
+                        opacityFrom: 1,
+                        opacityTo: 1,
+                        stops: [0, 50, 100],
+                        colorStops: []
+                    }
+                },
+                tooltip: {
+                    y: {
+                        formatter: function (value) {
+                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+                        },
+                    }
+                }
+            });
+
+            window.lineChart.render();
+    }
+
+
+    var sidoData = [[${sidoData}]];
+    var vaccineData = [[${vaccineData}]]
+    var dateState = [[${dateState}]]
+
+    function selectFunctionByDateState(sido) {
+        if (dateState == 1) {
+            renderPieChart1(sido);
+        } else {
+            renderPieChart0(sido);
+        }
+
+    }
+
+    var donutChart1;
+
+    function rederingDonutChartText1(sidoDto, subDto) {
+
+        var incdec = sidoDto["incDec"];
+        var localOcc = sidoDto["localOccCnt"];
+        var overFlow = sidoDto["overFlowCnt"];
+        var deathCnt = sidoDto["deathCnt"];
+        var defCnt = sidoDto["defCnt"];
+
+        var incdecSub = subDto["incDecCntSub"]
+        var localOccSub = subDto["locOccCntSub"]
+        var overFlowSub = subDto["overFlowCntSub"]
+        var deathCntSub = subDto["deathCntSub"]
+        var defCntSub = subDto["defCntSub"]
+
+        document.getElementById("today-incdec-cnt").innerText = incdecSub + incdec + ' 명';
+        document.getElementById("local-occ-cnt").innerText = localOccSub + localOcc + ' 명';
+        document.getElementById("overflow-cnt").innerText = overFlowSub + overFlow + ' 명';
+        document.getElementById("death-cnt").innerText = deathCntSub + deathCnt + ' 명';
+        document.getElementById("today-def-cnt").innerText = defCntSub + defCnt + ' 명';
+
+
+    }
+
+    function renderPieChart1(sido) {
+        var firstCnt;
+        var secondCnt;
+        var thirdCnt;
+
+        var firstCntSub;
+        var secondCntSub;
+        var thirdCntSub;
+
+        if (sido === '부산') {
+            var busanDto = sidoData["busanDto"];
+            var vaccineBusanDto = vaccineData["vaccineBusanDto"];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.busan.go.kr/covid19/")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/busan_btn.png")
+            drawPieChart1([[${donutChartArrBusan}]], sido)
+
+            rederingDonutChartText1(busanDto, busanSubDto);
+
+            firstCnt = vaccineBusanDto["totalFirstCnt"];
+            secondCnt = vaccineBusanDto["totalSecondCnt"];
+            thirdCnt = vaccineBusanDto["totalThirdCnt"];
+
+            var busanSubDto = [[${busanSubDto}]];
+            firstCntSub = busanSubDto["firstCntSub"];
+            secondCntSub = busanSubDto["secondCntSub"];
+            thirdCntSub = busanSubDto["thirdCntSub"];
+
+            var busanPopulation = 3254941.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / busanPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / busanPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / busanPopulation) * 100.0).toFixed(2) + ' %';
+
+
+
+        }
+        else if (sido === '충북') {
+            var chungbukDto = sidoData["chungbukDto"];
+            var vaccineChungbukDto = vaccineData["vaccineChungbukDto"];
+            var chungbukSubDto = [[${chungbukSubDto}]];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.chungbuk.go.kr/covid-19/index.do")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/chungbuk_btn.png")
+            drawPieChart1([[${donutChartArrChungbuk}]], sido)
+
+            rederingDonutChartText1(chungbukDto, chungbukSubDto);
+
+            firstCnt = vaccineChungbukDto["totalFirstCnt"];
+            secondCnt = vaccineChungbukDto["totalSecondCnt"];
+            thirdCnt = vaccineChungbukDto["totalThirdCnt"];
+
+
+            firstCntSub = chungbukSubDto["firstCntSub"];
+            secondCntSub = chungbukSubDto["secondCntSub"];
+            thirdCntSub = chungbukSubDto["thirdCntSub"];
+
+            var chungbukPopulation = 1550499.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / chungbukPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / chungbukPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / chungbukPopulation) * 100.0).toFixed(2) + ' %';
+        }
+        else if (sido === '충남') {
+            var chungnamDto = sidoData["chungnamDto"];
+            var vaccineChungnamDto = vaccineData["vaccineChungnamDto"];
+            var chungnamSubDto = [[${chungnamSubDto}]];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "http://www.chungnam.go.kr:8100/coronaStatus.do")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/chungnam_btn.png")
+            drawPieChart1([[${donutChartArrChungnam}]], sido)
+
+            rederingDonutChartText1(chungnamDto, chungnamSubDto);
+
+            firstCnt = vaccineChungnamDto["totalFirstCnt"];
+            secondCnt = vaccineChungnamDto["totalSecondCnt"];
+            thirdCnt = vaccineChungnamDto["totalThirdCnt"];
+
+            firstCntSub = chungnamSubDto["firstCntSub"];
+            secondCntSub = chungnamSubDto["secondCntSub"];
+            thirdCntSub = chungnamSubDto["thirdCntSub"];
+
+            var chungnamPopulation = 2055123.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / chungnamPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / chungnamPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / chungnamPopulation) * 100.0).toFixed(2) + ' %';
+
+        }
+        else if (sido === '대구') {
+            var daeguDto = sidoData["daeguDto"];
+            var vaccineDaeguDto = vaccineData["vaccineDaeguDto"];
+            var daeguSubDto = [[${daeguSubDto}]];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "http://covid19.daegu.go.kr/index.html")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/daegu_btn.png")
+            drawPieChart1([[${donutChartArrDaegu}]], sido)
+
+            rederingDonutChartText1(daeguDto, daeguSubDto);
+
+            firstCnt = vaccineDaeguDto["totalFirstCnt"];
+            secondCnt = vaccineDaeguDto["totalSecondCnt"];
+            thirdCnt = vaccineDaeguDto["totalThirdCnt"];
+
+            firstCntSub = daeguSubDto["firstCntSub"];
+            secondCntSub = daeguSubDto["secondCntSub"];
+            thirdCntSub = daeguSubDto["thirdCntSub"];
+
+            var daeguPopulation = 2314203.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / daeguPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / daeguPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / daeguPopulation) * 100.0).toFixed(2) + ' %';
+
+        }
+        else if (sido === '대전') {
+            var daejeonDto = sidoData["daejeonDto"];
+            var vaccineDaejeonDto = vaccineData["vaccineDaejeonDto"];
+            var daejeonSubDto = [[${daejeonSubDto}]];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://corona.daejeon.go.kr/index.do")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/daejeon_btn.png")
+            drawPieChart1([[${donutChartArrDaejeon}]], sido)
+
+            rederingDonutChartText1(daejeonDto, daejeonSubDto);
+
+            firstCnt = vaccineDaejeonDto["totalFirstCnt"];
+            secondCnt = vaccineDaejeonDto["totalSecondCnt"];
+            thirdCnt = vaccineDaejeonDto["totalThirdCnt"];
+
+            firstCntSub = daejeonSubDto["firstCntSub"];
+            secondCntSub = daejeonSubDto["secondCntSub"];
+            thirdCntSub = daejeonSubDto["thirdCntSub"];
+
+            var daejeonPopulation = 1406633.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / daejeonPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / daejeonPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / daejeonPopulation) * 100.0).toFixed(2) + ' %';
+
+        }
+        else if (sido === '강원') {
+            var gangwonDto = sidoData["gangwonDto"];
+            var vaccineGangwonDto = vaccineData["vaccineGangwonDto"];
+            var gangwonSubDto = [[${gangwonSubDto}]];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.provin.gangwon.kr/covid-19.html")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/gangwon_btn.png")
+            drawPieChart1([[${donutChartArrGangwon}]], sido)
+
+            rederingDonutChartText1(gangwonDto, gangwonSubDto);
+
+            firstCnt = vaccineGangwonDto["totalFirstCnt"];
+            secondCnt = vaccineGangwonDto["totalSecondCnt"];
+            thirdCnt = vaccineGangwonDto["totalThirdCnt"];
+
+            firstCntSub = gangwonSubDto["firstCntSub"];
+            secondCntSub = gangwonSubDto["secondCntSub"];
+            thirdCntSub = gangwonSubDto["thirdCntSub"];
+
+            var gangwonPopulation = 1497290.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / gangwonPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / gangwonPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / gangwonPopulation) * 100.0).toFixed(2) + ' %';
+
+        }
+        else if (sido === '광주') {
+            var gwangjuDto = sidoData["gwangjuDto"];
+            var vaccineGwangjuDto = vaccineData["vaccineGwangjuDto"];
+            var gwangjuSubDto = [[${gwangjuSubDto}]];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.gwangju.go.kr/c19/")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/gwangju_btn.png")
+            drawPieChart1([[${donutChartArrGwangju}]], sido)
+
+            rederingDonutChartText1(gwangjuDto, gwangjuSubDto);
+
+            firstCnt = vaccineGwangjuDto["totalFirstCnt"];
+            secondCnt = vaccineGwangjuDto["totalSecondCnt"];
+            thirdCnt = vaccineGwangjuDto["totalThirdCnt"];
+
+            firstCntSub = gwangjuSubDto["firstCntSub"];
+            secondCntSub = gwangjuSubDto["secondCntSub"];
+            thirdCntSub = gwangjuSubDto["thirdCntSub"];
+
+            var gwangjuPopulation = 1392724.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / gwangjuPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / gwangjuPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / gwangjuPopulation) * 100.0).toFixed(2) + ' %';
+
+        }
+        else if (sido === '경북') {
+            var gyeongbukDto = sidoData["gyeongbukDto"];
+            var vaccineGyeongbukDto = vaccineData["vaccineGyeongbukDto"];
+            var gyeongbukSubDto = [[${gyeongbukSubDto}]];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.gb.go.kr/corona_main.htm")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/gyeongbuk_btn.png")
+            drawPieChart1([[${donutChartArrGyeongbuk}]], sido)
+
+            rederingDonutChartText1(gyeongbukDto, gyeongbukSubDto);
+
+            firstCnt = vaccineGyeongbukDto["totalFirstCnt"];
+            secondCnt = vaccineGyeongbukDto["totalSecondCnt"];
+            thirdCnt = vaccineGyeongbukDto["totalThirdCnt"];
+
+            firstCntSub = gyeongbukSubDto["firstCntSub"];
+            secondCntSub = gyeongbukSubDto["secondCntSub"];
+            thirdCntSub = gyeongbukSubDto["thirdCntSub"];
+
+            var gyeongbukPopulation = 2547934.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / gyeongbukPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / gyeongbukPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / gyeongbukPopulation) * 100.0).toFixed(2) + ' %';
+
+        }
+        else if (sido === '경기') {
+            var gyeonggiDto = sidoData["gyeonggiDto"];
+            var vaccineGyeonggiDto = vaccineData["vaccineGyeonggiDto"];
+            var gyeonggiSubDto = [[${gyeonggiSubDto}]];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.gg.go.kr/contents/contents.do?ciIdx=1150&menuId=2909")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/gyeonggi_btn.png")
+            drawPieChart1([[${donutChartArrGyeonggi}]], sido)
+
+            rederingDonutChartText1(gyeonggiDto, gyeonggiSubDto);
+
+            firstCnt = vaccineGyeonggiDto["totalFirstCnt"];
+            secondCnt = vaccineGyeonggiDto["totalSecondCnt"];
+            thirdCnt = vaccineGyeonggiDto["totalThirdCnt"];
+
+            firstCntSub = gyeonggiSubDto["firstCntSub"];
+            secondCntSub = gyeonggiSubDto["secondCntSub"];
+            thirdCntSub = gyeonggiSubDto["thirdCntSub"];
+
+            var gyeonggiPopulation = 13136346.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / gyeonggiPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / gyeonggiPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / gyeonggiPopulation) * 100.0).toFixed(2) + ' %';
+
+        }
+        else if (sido === '경남') {
+            var gyeongnamDto = sidoData["gyeongnamDto"];
+            var vaccineGyeongnamDto = vaccineData["vaccineGyeongnamDto"];
+            var gyeongnamSubDto = [[${gyeongnamSubDto}]];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "http://xn--19-q81ii1knc140d892b.kr/main/main.do")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/gyeongnam_btn.png")
+            drawPieChart1([[${donutChartArrGyeongnam}]], sido)
+
+            rederingDonutChartText1(gyeongnamDto, gyeongnamSubDto);
+
+            firstCnt = vaccineGyeongnamDto["totalFirstCnt"];
+            secondCnt = vaccineGyeongnamDto["totalSecondCnt"];
+            thirdCnt = vaccineGyeongnamDto["totalThirdCnt"];
+
+            firstCntSub = gyeongnamSubDto["firstCntSub"];
+            secondCntSub = gyeongnamSubDto["secondCntSub"];
+            thirdCntSub = gyeongnamSubDto["thirdCntSub"];
+
+            var gyeongnamPopulation = 3207645.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / gyeongnamPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / gyeongnamPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / gyeongnamPopulation) * 100.0).toFixed(2) + ' %';
+
+        }
+        else if (sido === '인천') {
+            var incheonDto = sidoData["incheonDto"];
+            var vaccineIncheonDto = vaccineData["vaccineIncheonDto"];
+            var incheonSubDto = [[${incheonSubDto}]];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.incheon.go.kr/covid19/index")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/incheon_btn.png")
+            drawPieChart1([[${donutChartArrIncheon}]], sido)
+
+            rederingDonutChartText1(incheonDto, incheonSubDto);
+
+            firstCnt = vaccineIncheonDto["totalFirstCnt"];
+            secondCnt = vaccineIncheonDto["totalSecondCnt"];
+            thirdCnt = vaccineIncheonDto["totalThirdCnt"];
+
+            firstCntSub = incheonSubDto["firstCntSub"];
+            secondCntSub = incheonSubDto["secondCntSub"];
+            thirdCntSub = incheonSubDto["thirdCntSub"];
+
+            var incheonPopulation = 2866286.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / incheonPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / incheonPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / incheonPopulation) * 100.0).toFixed(2) + ' %';
+
+        }
+        else if (sido === '제주') {
+            var jejuDto = sidoData["jejuDto"];
+            var vaccineJejuDto = vaccineData["vaccineJejuDto"];
+            var jejuSubDto = [[${jejuSubDto}]];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://covid19.jeju.go.kr/")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/jeju_btn.png")
+            drawPieChart1([[${donutChartArrJeju}]], sido)
+
+            rederingDonutChartText1(jejuDto, jejuSubDto);
+
+            firstCnt = vaccineJejuDto["totalFirstCnt"];
+            secondCnt = vaccineJejuDto["totalSecondCnt"];
+            thirdCnt = vaccineJejuDto["totalThirdCnt"];
+
+            firstCntSub = jejuSubDto["firstCntSub"];
+            secondCntSub = jejuSubDto["secondCntSub"];
+            thirdCntSub = jejuSubDto["thirdCntSub"];
+
+            var jejuPopulation = 654843.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / jejuPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / jejuPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / jejuPopulation) * 100.0).toFixed(2) + ' %';
+
+        }
+        else if (sido === '전북') {
+            var jeonbukDto = sidoData["jeonbukDto"];
+            var vaccineJeonbukDto = vaccineData["vaccineJeonbukDto"];
+            var jeonbukSubDto = [[${jeonbukSubDto}]];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.jeonbuk.go.kr/board/list.jeonbuk?boardId=BBS_0000105&menuCd=DOM_000000110001000000&contentsSid=1219&cpath=")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/jeonbuk_btn.png")
+            drawPieChart1([[${donutChartArrJeonbuk}]], sido)
+
+            rederingDonutChartText1(jeonbukDto, jeonbukSubDto);
+
+            firstCnt = vaccineJeonbukDto["totalFirstCnt"];
+            secondCnt = vaccineJeonbukDto["totalSecondCnt"];
+            thirdCnt = vaccineJeonbukDto["totalThirdCnt"];
+
+            firstCntSub = jeonbukSubDto["firstCntSub"];
+            secondCntSub = jeonbukSubDto["secondCntSub"];
+            thirdCntSub = jeonbukSubDto["thirdCntSub"];
+
+            var jeonbukPopulation = 1736202.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / jeonbukPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / jeonbukPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / jeonbukPopulation) * 100.0).toFixed(2) + ' %';
+
+        }
+        else if (sido === '전남') {
+            var jeonnamDto = sidoData["jeonnamDto"];
+            var vaccineJeonnamDto = vaccineData["vaccineJeonnamDto"];
+            var jeonnamSubDto = [[${jeonnamSubDto}]];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.jeonnam.go.kr/corona19Page.do")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/jeonnam_btn.png")
+            drawPieChart1([[${donutChartArrJeonnam}]], sido)
+
+            rederingDonutChartText1(jeonnamDto, jeonnamSubDto);
+
+            firstCnt = vaccineJeonnamDto["totalFirstCnt"];
+            secondCnt = vaccineJeonnamDto["totalSecondCnt"];
+            thirdCnt = vaccineJeonnamDto["totalThirdCnt"];
+
+            firstCntSub = jeonnamSubDto["firstCntSub"];
+            secondCntSub = jeonnamSubDto["secondCntSub"];
+            thirdCntSub = jeonnamSubDto["thirdCntSub"];
+
+            var jeonnamPopulation = 1779553.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / jeonnamPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / jeonnamPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / jeonnamPopulation) * 100.0).toFixed(2) + ' %';
+
+        }
+        else if (sido === '해외') {
+            var lazarettoDto = sidoData["lazarettoDto"];
+
+            document.getElementById("donut-chart-href").setAttribute("href", " ")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", " ")
+
+            drawPieChart1([[${donutChartArrLazaretto}]], sido)
+
+            var incdec = lazarettoDto["incDec"];
+            var localOcc = lazarettoDto["localOccCnt"];
+            var overFlow = lazarettoDto["overFlowCnt"];
+            var deathCnt = lazarettoDto["deathCnt"]
+            var defCnt = lazarettoDto["defCnt"]
+
+            var lazarettoSubDto = [[${lazarettoSubDto}]];
+
+            var incdecCntSub = lazarettoSubDto["incDecCntSub"]
+            var localOccSub = lazarettoSubDto["locOccCntSub"]
+            var overFlowSub = lazarettoSubDto["overFlowCntSub"]
+            var deathCntSub = lazarettoSubDto["deathCntSub"]
+            var defCntSub = lazarettoSubDto["defCntSub"]
+
+
+            document.getElementById("today-incdec-cnt").innerText = incdecCntSub + incdec + ' 명';
+            document.getElementById("local-occ-cnt").innerText = localOccSub + localOcc + ' 명';
+            document.getElementById("overflow-cnt").innerText = overFlowSub + overFlow + ' 명';
+            document.getElementById("death-cnt").innerText = deathCntSub + deathCnt + ' 명';
+            document.getElementById("today-def-cnt").innerText = defCntSub + defCnt + ' 명';
+
+            document.getElementById("vaccine-first-cnt1").innerText = '0.0 %';
+            document.getElementById("vaccine-second-cnt1").innerText = '0.0 %';
+            document.getElementById("vaccine-third-cnt1").innerText = '0.0 %';
+
+        }
+        else if (sido === '세종') {
+            var sejongDto = sidoData["sejongDto"];
+            var vaccineSejongDto = vaccineData["vaccineSejongDto"];
+            var sejongSubDto = [[${sejongSubDto}]];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.sejong.go.kr/bbs/R3273/list.do?cmsNoStr=17465")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/sejong_btn.png")
+            drawPieChart1([[${donutChartArrSejong}]], sido)
+
+            rederingDonutChartText1(sejongDto, sejongSubDto);
+
+            firstCnt = vaccineSejongDto["totalFirstCnt"];
+            secondCnt = vaccineSejongDto["totalSecondCnt"];
+            thirdCnt = vaccineSejongDto["totalThirdCnt"];
+
+            firstCntSub = sejongSubDto["firstCntSub"];
+            secondCntSub = sejongSubDto["secondCntSub"];
+            thirdCntSub = sejongSubDto["thirdCntSub"];
+
+            var sejongPopulation = 358394.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / sejongPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / sejongPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / sejongPopulation) * 100.0).toFixed(2) + ' %';
+
+        }
+        else if (sido === '서울') {
+            var seoulDto = sidoData["seoulDto"];
+            var vaccineSeoulDto = vaccineData["vaccineSeoulDto"];
+            var seoulSubDto = [[${seoulSubDto}]];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.seoul.go.kr/coronaV/coronaStatus.do")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/seoul_btn.png")
+            drawPieChart1([[${donutChartArrSeoul}]], sido)
+
+            rederingDonutChartText1(seoulDto, seoulSubDto);
+
+            firstCnt = vaccineSeoulDto["totalFirstCnt"];
+            secondCnt = vaccineSeoulDto["totalSecondCnt"];
+            thirdCnt = vaccineSeoulDto["totalThirdCnt"];
+
+            firstCntSub = seoulSubDto["firstCntSub"];
+            secondCntSub = seoulSubDto["secondCntSub"];
+            thirdCntSub = seoulSubDto["thirdCntSub"];
+
+            var seoulPopulation = 9262520.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / seoulPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / seoulPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / seoulPopulation) * 100.0).toFixed(2) + ' %';
+
+        }
+
+        else {
+            var ulsanDto = sidoData["ulsanDto"];
+            var vaccineUlsanDto = vaccineData["vaccineUlsanDto"];
+            var ulsanSubDto = [[${ulsanSubDto}]];
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.ulsan.go.kr/u/health/contents.ulsan?mId=001002014000000000")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/ulsan_btn.png")
+            drawPieChart1([[${donutChartArrUlsan}]], sido)
+
+            rederingDonutChartText1(ulsanDto, ulsanSubDto);
+
+            firstCnt = vaccineUlsanDto["totalFirstCnt"];
+            secondCnt = vaccineUlsanDto["totalSecondCnt"];
+            thirdCnt = vaccineUlsanDto["totalThirdCnt"];
+
+            firstCntSub = ulsanSubDto["firstCntSub"];
+            secondCntSub = ulsanSubDto["secondCntSub"];
+            thirdCntSub = ulsanSubDto["thirdCntSub"];
+
+            var ulsanPopulation = 1082056.0;
+
+            document.getElementById("vaccine-first-cnt1").innerText = firstCntSub + ((firstCnt / ulsanPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-second-cnt1").innerText = secondCntSub + ((secondCnt / ulsanPopulation) * 100.0).toFixed(2) + ' %';
+            document.getElementById("vaccine-third-cnt1").innerText = thirdCntSub + ((thirdCnt / ulsanPopulation) * 100.0).toFixed(2) + ' %';
+
+        }
+
+    }
+
+    function drawPieChart1(incDecArr, sido) {
+
+        if (window.donutChart1 != null) {
+            window.donutChart1.destroy();
+        }
+
+        window.donutChart1 = new ApexCharts(document.querySelector("#custom-donut-chart"), {
+            chart: {
+                type: 'donut',
+                width: '100%'
+            },
+            name: '확진자',
+            series: incDecArr,
+            colors: ["#e3eaef", "#44badc"],
+            labels: ['전국', sido],
+
+            dataLabels: {
+                enabled: true,
+            },
+
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'white',
+                    type: "horizontal",
+                    shadeIntensity: 0.5,
+                    // gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
+                    // inverseColors: true,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [0, 50, 100],
+                    colorStops: []
+                }
+            },
+
+            legend: {
+                position: 'bottom',
+            },
+            dropShadow: {
+                enabled: true,
+                top: 0,
+                left: 0,
+                blur: 3,
+                opacity: 0.5
+            },
+            title: {
+                text: sido + ' 확진자 현황',
+                align: 'center'
+            },
+            tooltip: {
+                formatter: function (value) {
+                    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+                },
+            }
+        })
+
+        window.donutChart1.render();
+    }
+
+    var donutChart0;
+    function rederingDonutChartText0(sidoDto, vaccineDto, subDto) {
+
+        var incdec = sidoDto["incDec"];
+        var localOcc = sidoDto["localOccCnt"];
+        var overFlow = sidoDto["overFlowCnt"];
+        var deathCnt = sidoDto["deathCnt"];
+        var defCnt = sidoDto["defCnt"];
+
+        var incdecSub = subDto["incDecCntSub"]
+        var localOccSub = subDto["locOccCntSub"]
+        var overFlowSub = subDto["overFlowCntSub"]
+        var deathCntSub = subDto["deathCntSub"]
+        var defCntSub = subDto["defCntSub"]
+
+        document.getElementById("today-incdec-cnt").innerText = incdecSub + incdec + ' 명';
+        document.getElementById("local-occ-cnt").innerText = localOccSub + localOcc + ' 명';
+        document.getElementById("overflow-cnt").innerText = overFlowSub + overFlow + ' 명';
+        document.getElementById("death-cnt").innerText = deathCntSub + deathCnt + ' 명';
+        document.getElementById("today-def-cnt").innerText = defCntSub + defCnt + ' 명';
+
+
+
+        var firstCnt = vaccineDto["totalFirstCnt"];
+        var secondCnt = vaccineDto["totalSecondCnt"];
+        var thirdCnt = vaccineDto["totalThirdCnt"];
+
+        document.getElementById("vaccine-first-cnt0").innerText = firstCnt + ' %';
+        document.getElementById("vaccine-second-cnt0").innerText = secondCnt + ' %';
+        document.getElementById("vaccine-third-cnt0").innerText = thirdCnt + ' %';
+
+    }
+
+    function renderPieChart0(sido) {
+
+        if (sido === '부산') {
+            var busanDto = sidoData["busanDto"];
+            var vaccineBusanDto = vaccineData["vaccineBusanDto"];
+            var busanSubDto = [[${busanSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.busan.go.kr/covid19/")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/busan_btn.png")
+            drawPieChart0([[${donutChartArrBusan}]], sido)
+
+            rederingDonutChartText0(busanDto, vaccineBusanDto, busanSubDto);
+
+
+
+
+        }
+        else if (sido === '충북') {
+            var chungbukDto = sidoData["chungbukDto"];
+            var vaccineChungbukDto = vaccineData["vaccineChungbukDto"];
+            var chungbukSubDto = [[${chungbukSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.chungbuk.go.kr/covid-19/index.do")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/chungbuk_btn.png")
+            drawPieChart0([[${donutChartArrChungbuk}]], sido)
+
+            rederingDonutChartText0(chungbukDto, vaccineChungbukDto, chungbukSubDto);
+
+
+
+        }
+        else if (sido === '충남') {
+            var chungnamDto = sidoData["chungnamDto"];
+            var vaccineChungnamDto = vaccineData["vaccineChungnamDto"];
+            var chungnamSubDto = [[${chungnamSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "http://www.chungnam.go.kr:8100/coronaStatus.do")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/chungnam_btn.png")
+            drawPieChart0([[${donutChartArrChungnam}]], sido)
+
+            rederingDonutChartText0(chungnamDto, vaccineChungnamDto, chungnamSubDto);
+
+        }
+        else if (sido === '대구') {
+            var daeguDto = sidoData["daeguDto"];
+            var vaccineDaeguDto = vaccineData["vaccineDaeguDto"];
+            var daeguSubDto = [[${daeguSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "http://covid19.daegu.go.kr/index.html")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/daegu_btn.png")
+            drawPieChart0([[${donutChartArrDaegu}]], sido)
+
+            rederingDonutChartText0(daeguDto, vaccineDaeguDto, daeguSubDto);
+
+        }
+        else if (sido === '대전') {
+            var daejeonDto = sidoData["daejeonDto"];
+            var vaccineDaejeonDto = vaccineData["vaccineDaejeonDto"];
+            var daejeonSubDto = [[${daejeonSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://corona.daejeon.go.kr/index.do")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/daejeon_btn.png")
+            drawPieChart0([[${donutChartArrDaejeon}]], sido)
+
+            rederingDonutChartText0(daejeonDto, vaccineDaejeonDto, daejeonSubDto);
+
+        }
+        else if (sido === '강원') {
+            var gangwonDto = sidoData["gangwonDto"];
+            var vaccineGangwonDto = vaccineData["vaccineGangwonDto"];
+            var gangwonSubDto = [[${gangwonSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.provin.gangwon.kr/covid-19.html")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/gangwon_btn.png")
+            drawPieChart0([[${donutChartArrGangwon}]], sido)
+
+            rederingDonutChartText0(gangwonDto, vaccineGangwonDto, gangwonSubDto);
+
+        }
+        else if (sido === '광주') {
+            var gwangjuDto = sidoData["gwangjuDto"];
+            var vaccineGwangjuDto = vaccineData["vaccineGwangjuDto"];
+            var gwangjuSubDto = [[${gwangjuSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.gwangju.go.kr/c19/")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/gwangju_btn.png")
+            drawPieChart0([[${donutChartArrGwangju}]], sido)
+
+            rederingDonutChartText0(gwangjuDto, vaccineGwangjuDto, gwangjuSubDto);
+
+        }
+        else if (sido === '경북') {
+            var gyeongbukDto = sidoData["gyeongbukDto"];
+            var vaccineGyeongbukDto = vaccineData["vaccineGyeongbukDto"];
+            var gyeongbukSubDto = [[${gyeongbukSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.gb.go.kr/corona_main.htm")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/gyeongbuk_btn.png")
+            drawPieChart0([[${donutChartArrGyeongbuk}]], sido)
+
+            rederingDonutChartText0(gyeongbukDto, vaccineGyeongbukDto, gyeongbukSubDto);
+
+        }
+        else if (sido === '경기') {
+            var gyeonggiDto = sidoData["gyeonggiDto"];
+            var vaccineGyeonggiDto = vaccineData["vaccineGyeonggiDto"];
+            var gyeonggiSubDto = [[${gyeonggiSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.gg.go.kr/contents/contents.do?ciIdx=1150&menuId=2909")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/gyeonggi_btn.png")
+            drawPieChart0([[${donutChartArrGyeonggi}]], sido)
+
+            rederingDonutChartText0(gyeonggiDto, vaccineGyeonggiDto, gyeonggiSubDto);
+
+        }
+        else if (sido === '경남') {
+            var gyeongnamDto = sidoData["gyeongnamDto"];
+            var vaccineGyeongnamDto = vaccineData["vaccineGyeongnamDto"];
+            var gyeongnamSubDto = [[${gyeongnamSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "http://xn--19-q81ii1knc140d892b.kr/main/main.do")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/gyeongnam_btn.png")
+            drawPieChart0([[${donutChartArrGyeongnam}]], sido)
+
+            rederingDonutChartText0(gyeongnamDto, vaccineGyeongnamDto, gyeongnamSubDto);
+
+        }
+        else if (sido === '인천') {
+            var incheonDto = sidoData["incheonDto"];
+            var vaccineIncheonDto = vaccineData["vaccineIncheonDto"];
+            var incheonSubDto = [[${incheonSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.incheon.go.kr/covid19/index")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/incheon_btn.png")
+            drawPieChart0([[${donutChartArrIncheon}]], sido)
+
+            rederingDonutChartText0(incheonDto, vaccineIncheonDto, incheonSubDto);
+
+        }
+        else if (sido === '제주') {
+            var jejuDto = sidoData["jejuDto"];
+            var vaccineJejuDto = vaccineData["vaccineJejuDto"];
+            var jejuSubDto = [[${jejuSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://covid19.jeju.go.kr/")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/jeju_btn.png")
+            drawPieChart0([[${donutChartArrJeju}]], sido)
+
+            rederingDonutChartText0(jejuDto, vaccineJejuDto, jejuSubDto);
+
+        }
+        else if (sido === '전북') {
+            var jeonbukDto = sidoData["jeonbukDto"];
+            var vaccineJeonbukDto = vaccineData["vaccineJeonbukDto"];
+            var jeonbukSubDto = [[${jeonbukSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.jeonbuk.go.kr/board/list.jeonbuk?boardId=BBS_0000105&menuCd=DOM_000000110001000000&contentsSid=1219&cpath=")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/jeonbuk_btn.png")
+            drawPieChart0([[${donutChartArrJeonbuk}]], sido)
+
+            rederingDonutChartText0(jeonbukDto, vaccineJeonbukDto, jeonbukSubDto);
+
+        }
+        else if (sido === '전남') {
+            var jeonnamDto = sidoData["jeonnamDto"];
+            var vaccineJeonnamDto = vaccineData["vaccineJeonnamDto"];
+            var jeonnamSubDto = [[${jeonnamSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.jeonnam.go.kr/corona19Page.do")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/jeonnam_btn.png")
+            drawPieChart0([[${donutChartArrJeonnam}]], sido)
+
+            rederingDonutChartText0(jeonnamDto, vaccineJeonnamDto, jeonnamSubDto);
+
+        }
+        else if (sido === '해외') {
+            var lazarettoDto = sidoData["lazarettoDto"];
+
+            document.getElementById("donut-chart-href").setAttribute("href", " ")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", " ")
+
+            drawPieChart0([[${donutChartArrLazaretto}]], sido)
+
+            var incdec = lazarettoDto["incDec"];
+            var localOcc = lazarettoDto["localOccCnt"];
+            var overFlow = lazarettoDto["overFlowCnt"];
+            var deathCnt = lazarettoDto["deathCnt"]
+            var defCnt = lazarettoDto["defCnt"]
+
+            var lazarettoSubDto = [[${lazarettoSubDto}]]
+
+            var incdecSub = lazarettoSubDto["incDecCntSub"]
+            var localOccSub = lazarettoSubDto["locOccCntSub"]
+            var overFlowSub = lazarettoSubDto["overFlowCntSub"]
+            var deathCntSub = lazarettoSubDto["deathCntSub"]
+            var defCntSub = lazarettoSubDto["defCntSub"]
+
+            document.getElementById("today-incdec-cnt").innerText = incdecSub + incdec + ' 명';
+            document.getElementById("local-occ-cnt").innerText = localOccSub + localOcc + ' 명';
+            document.getElementById("overflow-cnt").innerText = overFlowSub + overFlow + ' 명';
+            document.getElementById("death-cnt").innerText = deathCntSub + deathCnt + ' 명';
+            document.getElementById("today-def-cnt").innerText = defCntSub + defCnt + ' 명';
+
+            document.getElementById("vaccine-first-cnt0").innerText = '0.0 %';
+            document.getElementById("vaccine-second-cnt0").innerText = '0.0 %';
+            document.getElementById("vaccine-third-cnt0").innerText = '0.0 %';
+
+        }
+        else if (sido === '세종') {
+            var sejongDto = sidoData["sejongDto"];
+            var vaccineSejongDto = vaccineData["vaccineSejongDto"];
+            var sejongSubDto = [[${sejongSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.sejong.go.kr/bbs/R3273/list.do?cmsNoStr=17465")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/sejong_btn.png")
+            drawPieChart0([[${donutChartArrSejong}]], sido)
+
+            rederingDonutChartText0(sejongDto, vaccineSejongDto, sejongSubDto);
+
+        }
+        else if (sido === '서울') {
+            var seoulDto = sidoData["seoulDto"];
+            var vaccineSeoulDto = vaccineData["vaccineSeoulDto"];
+            var seoulSubDto = [[${seoulSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.seoul.go.kr/coronaV/coronaStatus.do")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/seoul_btn.png")
+            drawPieChart0([[${donutChartArrSeoul}]], sido)
+
+            rederingDonutChartText0(seoulDto, vaccineSeoulDto, seoulSubDto);
+
+        }
+        else {
+            var ulsanDto = sidoData["ulsanDto"];
+            var vaccineUlsanDto = vaccineData["vaccineUlsanDto"];
+            var ulsanSubDto = [[${ulsanSubDto}]]
+
+            document.getElementById("donut-chart-href").setAttribute("href", "https://www.ulsan.go.kr/u/health/contents.ulsan?mId=001002014000000000")
+            document.getElementById("donut-chart-btn-img").setAttribute("src", "assets/images/custom-images/ulsan_btn.png")
+            drawPieChart0([[${donutChartArrUlsan}]], sido)
+
+            rederingDonutChartText0(ulsanDto, vaccineUlsanDto, ulsanSubDto);
+
+        }
+
+    }
+
+    function drawPieChart0(incDecArr, sido) {
+
+        if (window.donutChart0 != null) {
+            window.donutChart0.destroy();
+        }
+
+        window.donutChart0 = new ApexCharts(document.querySelector("#custom-donut-chart"), {
+            chart: {
+                type: 'donut',
+                width: '100%'
+            },
+            name: '확진자',
+            series: incDecArr,
+
+            colors: ["#e3eaef", "#44badc"],
+            labels: ['전국', sido],
+
+            dataLabels: {
+                enabled: true,
+            },
+
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'white',
+                    type: "horizontal",
+                    shadeIntensity: 0.5,
+                    // gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
+                    // inverseColors: true,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [0, 50, 100],
+                    colorStops: []
+                }
+            },
+
+            legend: {
+                position: 'bottom',
+            },
+            dropShadow: {
+                enabled: true,
+                top: 0,
+                left: 0,
+                blur: 3,
+                opacity: 0.5
+            },
+            title: {
+                text: sido + ' 확진자 현황',
+                align: 'center'
+            },
+            tooltip: {
+                formatter: function (value) {
+                    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '명';
+                },
+            }
+        })
+
+        window.donutChart0.render();
+    }
+
+
+
+
+
+
+
+
+</script>
+
+<!-- bundle -->
+<script src="assets/js/vendor.min.js"></script>
+<script src="assets/js/app.min.js"></script>
+
+<!-- third party js -->
+<script src="assets/js/vendor/apexcharts.min.js"></script>
+<script src="assets/js/vendor/jquery-jvectormap-1.2.2.min.js"></script>
+<script src="assets/js/vendor/jquery-jvectormap-world-mill-en.js"></script>
+<!-- third party js ends -->
+
+<!-- demo app -->
+<script src="assets/js/pages/demo.dashboard.js"></script>
+<!-- end demo js-->
+
+<!-- apex chat js -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<!-- date range picker -->
+
+<!-- js -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

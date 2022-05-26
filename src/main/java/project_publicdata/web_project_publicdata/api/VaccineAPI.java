@@ -14,5 +14,7 @@ public class VaccineAPI {
             "?page=1&perPage=8000" +
             "&serviceKey=" + key;
 
+    // startDay = "2021 - 03 - 11
+
 
 }

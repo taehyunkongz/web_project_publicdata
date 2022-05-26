@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.json.simple.parser.ParseException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import project_publicdata.web_project_publicdata.service.InitGenderAndAgeService;
-import project_publicdata.web_project_publicdata.service.InitSidoService;
-import project_publicdata.web_project_publicdata.service.InitVaccineService;
+import project_publicdata.web_project_publicdata.service.init.InitGenderAndAgeService;
+import project_publicdata.web_project_publicdata.service.init.InitSidoService;
+import project_publicdata.web_project_publicdata.service.init.InitVaccineService;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;

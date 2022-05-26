@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import project_publicdata.web_project_publicdata.entity.genderAndAge.gender.Female;
 
 @Repository
-public interface FemaleRepository extends JpaRepository<Female, Long> {
+public interface FemaleRepository extends JpaRepository<Female, Long>, FemaleRepositoryCustom {
 }

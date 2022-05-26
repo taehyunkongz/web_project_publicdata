@@ -3,8 +3,10 @@ package project_publicdata.web_project_publicdata.entity.genderAndAge.gender;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -26,22 +28,25 @@ public class Female {
 
     private Integer confCase;
     private Double confCaseRate;
-    private String createDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
+
     private Double criticalRate;
     private Integer deathCnt;
     private Double deathRate;
-    private String ageAndGender;
+    private String genderAndAge;
     private Integer seq;
 
-    public Female(Integer confCase, Double confCaseRate, String createDate, Double criticalRate, Integer deathCnt,
-                  Double deathRate, String ageAndGender, Integer seq) {
+    public Female(Integer confCase, Double confCaseRate, LocalDate date, Double criticalRate, Integer deathCnt,
+                  Double deathRate, String genderAndAge, Integer seq) {
         this.confCase = confCase;
         this.confCaseRate = confCaseRate;
-        this.createDate = createDate;
+        this.date = date;
         this.criticalRate = criticalRate;
         this.deathCnt = deathCnt;
         this.deathRate = deathRate;
-        this.ageAndGender = ageAndGender;
+        this.genderAndAge = genderAndAge;
         this.seq = seq;
     }
 }

@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import project_publicdata.web_project_publicdata.entity.genderAndAge.age.Kids;
 
 @Repository
-public interface KidsRepository extends JpaRepository<Kids, Long> {
+public interface KidsRepository extends JpaRepository<Kids, Long>, KidsRepositoryCustom {
 }

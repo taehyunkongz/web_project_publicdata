@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import project_publicdata.web_project_publicdata.entity.genderAndAge.age.SixtyS;
 
 @Repository
-public interface SixtySRepository extends JpaRepository<SixtyS, Long> {
+public interface SixtySRepository extends JpaRepository<SixtyS, Long>, SixtySRepositoryCustom {
 }

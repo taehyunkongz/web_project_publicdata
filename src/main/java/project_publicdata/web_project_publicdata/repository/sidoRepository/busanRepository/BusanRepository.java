@@ -8,3 +8,4 @@ import project_publicdata.web_project_publicdata.entity.sido.Busan;
 public interface BusanRepository extends JpaRepository<Busan, Long>, BusanRepositoryCustom {
 
 }
+

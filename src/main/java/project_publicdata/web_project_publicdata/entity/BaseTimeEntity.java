@@ -24,9 +24,5 @@ public abstract class BaseTimeEntity {
     @Convert(converter = LocalDateTimeConverter.class)
     private LocalDateTime createDate;
 
-//    @LastModifiedDate
-//    @Column(nullable = false)
-//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-//    @Convert(converter = LocalDateTimeConverter.class)
-//    private LocalDateTime modifiedDate;
+
 }

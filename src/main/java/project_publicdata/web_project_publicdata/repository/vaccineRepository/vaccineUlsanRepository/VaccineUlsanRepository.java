@@ -5,5 +5,7 @@ import org.springframework.stereotype.Repository;
 import project_publicdata.web_project_publicdata.entity.vaccine.VaccineUlsan;
 
 @Repository
-public interface VaccineUlsanRepository extends JpaRepository<VaccineUlsan, Long> {
+public interface VaccineUlsanRepository extends JpaRepository<VaccineUlsan, Long>, VaccineUlsanRepositoryCustom {
+
 }
+

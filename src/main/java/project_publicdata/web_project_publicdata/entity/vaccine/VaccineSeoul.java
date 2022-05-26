@@ -3,8 +3,10 @@ package project_publicdata.web_project_publicdata.entity.vaccine;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -37,10 +39,12 @@ public class VaccineSeoul {
     private Integer totalThirdCnt;
 
     private String sido;
-    private String stdDay;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
 
     public VaccineSeoul(Integer accFirstCnt, Integer accSecondCnt, Integer accThirdCnt, Integer firstCnt, Integer secondCnt,
-                        Integer thirdCnt, Integer totalFirstCnt, Integer totalSecondCnt, Integer totalThirdCnt, String sido, String stdDay) {
+                        Integer thirdCnt, Integer totalFirstCnt, Integer totalSecondCnt, Integer totalThirdCnt, String sido, LocalDate date) {
         this.accFirstCnt = accFirstCnt;
         this.accSecondCnt = accSecondCnt;
         this.accThirdCnt = accThirdCnt;
@@ -51,6 +55,6 @@ public class VaccineSeoul {
         this.totalSecondCnt = totalSecondCnt;
         this.totalThirdCnt = totalThirdCnt;
         this.sido = sido;
-        this.stdDay = stdDay;
+        this.date = date;
     }
 }
